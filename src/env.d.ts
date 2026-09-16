@@ -1,11 +1,6 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-import type { Alpine } from 'alpinejs';
-
-declare global {
-	interface Window {
-		Alpine: Alpine;
-	}
+interface Window {
+	Alpine: import('alpinejs').Alpine;
 }
-
-export {};

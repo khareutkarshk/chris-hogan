@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "check": "astro check",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -22,6 +23,9 @@
     "esbuild": true
   },
   "devDependencies": {
-    "@types/alpinejs": "^3.13.11"
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/ts-plugin": "^1.10.11",
+    "@types/alpinejs": "^3.13.11",
+    "typescript": "~5.9.3"
   }
 }
