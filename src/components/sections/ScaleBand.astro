@@ -3,6 +3,8 @@
  * ScaleBand — short cinematic proof strip
  * Text overlays the photo; no tall full-viewport crop.
  */
+import { withBase } from '../../lib/paths';
+
 interface Props {
 	id?: string;
 	label?: string;
@@ -23,9 +25,9 @@ const {
 <section class="scale-band" id={id} aria-label="Audience scale">
 	<div class="scale-band__media" aria-hidden="true">
 		<picture>
-			<source srcset={imageWebp} type="image/webp" />
+			<source srcset={withBase(imageWebp)} type="image/webp" />
 			<img
-				src={imageJpg}
+				src={withBase(imageJpg)}
 				alt=""
 				width="2400"
 				height="900"

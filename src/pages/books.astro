@@ -1,0 +1,348 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Button from '../components/ui/Button.astro';
+import { withBase } from '../lib/paths';
+
+/** Gated until title, date, and publisher are confirmed. */
+const SHOW_FORTHCOMING = false;
+
+const books = [
+	{
+		id: 'retire-inspired',
+		title: 'Retire Inspired',
+		subtitle: 'It’s Not an Age, It’s a Financial Number',
+		year: 'January 12, 2016 · Ramsey Press',
+		isbn: 'ISBN 978-1937077815',
+		pages: '~256 pages',
+		hook: 'Retirement isn’t an age — it’s a financial number. The book that introduced R:IQ.',
+		coverJpg: withBase('/images/books/retire-inspired.jpg'),
+		coverWebp: withBase('/images/books/retire-inspired.webp'),
+		coverWidth: 620,
+		coverHeight: 1000,
+		points: [
+			'R:IQ (Retire Inspired Quotient) — a dollar target, not a birthday',
+			'#1 book in America the week of January 25, 2016 — 68,950 copies (Publishers Weekly)',
+			'Strongest market that week: Nashville, then Phoenix',
+		],
+		buyHref: 'https://www.amazon.com/stores/author/B0187PCMHI',
+	},
+	{
+		id: 'everyday-millionaires',
+		title: 'Everyday Millionaires',
+		subtitle: 'How Ordinary People Built Extraordinary Wealth — and How You Can Too',
+		year: 'January 7, 2019 · Ramsey Press',
+		isbn: 'ISBN 978-0977489527',
+		pages: '272 pages',
+		hook: 'How ordinary people built extraordinary wealth — drawn from research with 10,000+ U.S. millionaires.',
+		coverJpg: withBase('/images/books/everyday-millionaires.jpg'),
+		coverWebp: withBase('/images/books/everyday-millionaires.webp'),
+		coverWidth: 267,
+		coverHeight: 400,
+		points: [
+			'Survey of 10,000+ U.S. millionaires (net worth ≥ $1M) with the Ramsey research team',
+			'Debunks the inherited-wealth myth with data, not slogans',
+			'Habits: live on less than you earn, avoid debt, invest consistently',
+		],
+		buyHref: 'https://www.amazon.com/stores/author/B0187PCMHI',
+	},
+];
+
+const findings = [
+	{ value: '49', label: 'Average age at first million' },
+	{ value: '79%', label: 'Received no inheritance' },
+	{ value: '88%', label: 'Bachelor’s degree or higher' },
+	{ value: '#1', label: 'Wealth builder: retirement-plan investing' },
+];
+---
+
+<Layout
+	header="light"
+	preloadImage="/images/speaking/stage-header.webp"
+	title="Books | Chris Hogan"
+	description="Retire Inspired and Everyday Millionaires — two national bestsellers, with research from 10,000+ U.S. millionaires."
+>
+	<PageHero
+		surface="photo"
+		label="Books"
+		title="Two national bestsellers. One practical standard."
+		support="Frameworks for retirement as a financial number — and the everyday habits behind real wealth."
+		imageJpg="/images/speaking/stage-header.jpg"
+		imageWebp="/images/speaking/stage-header.webp"
+		imageAlt="Chris Hogan on a conference stage"
+	/>
+
+	{
+		books.map((book, index) => (
+			<section
+				class:list={['book-block', index % 2 === 1 && 'book-block--alt']}
+				id={book.id}
+				aria-labelledby={`${book.id}-title`}
+			>
+				<div class="book-block__inner">
+					<div class="book-block__cover">
+						<picture>
+							<source srcset={book.coverWebp} type="image/webp" />
+							<img
+								src={book.coverJpg}
+								alt={`Cover of ${book.title}`}
+								width={book.coverWidth}
+								height={book.coverHeight}
+								loading={index === 0 ? 'eager' : 'lazy'}
+								decoding="async"
+							/>
+						</picture>
+					</div>
+					<div class="book-block__copy">
+						<p class="text-meta book-block__meta">{book.year}</p>
+						<h2 id={`${book.id}-title`}>{book.title}</h2>
+						<p class="book-block__sub">{book.subtitle}</p>
+						<p class="book-block__hook">{book.hook}</p>
+						<p class="book-block__biblio">
+							{book.isbn} · {book.pages}
+						</p>
+						<ul>
+							{book.points.map((point) => (
+								<li>{point}</li>
+							))}
+						</ul>
+						<div class="book-block__actions">
+							<Button href={book.buyHref} variant="primary" size="md" external>
+								Find the book
+							</Button>
+						</div>
+					</div>
+				</div>
+			</section>
+		))
+	}
+
+	<section class="findings" aria-labelledby="findings-heading">
+		<div class="findings__inner">
+			<SectionHeader
+				id="findings-heading"
+				label="The research"
+				labelAccent="copper"
+				title="What 10,000+ U.S. millionaires actually look like."
+				description="Findings reported by CNBC Make It from the Everyday Millionaires study. Ordinary people. Consistent habits. No inherited-wealth myth."
+			/>
+			<ul class="findings__grid">
+				{
+					findings.map((item) => (
+						<li>
+							<span>{item.value}</span>
+							{item.label}
+						</li>
+					))
+				}
+			</ul>
+			<p class="findings__note">
+				Additional reported patterns: ~80% came from middle-class or below; 60%+ attended public
+				college; consistent 403(b) investing showed up even among school teachers.
+			</p>
+		</div>
+	</section>
+
+	{
+		SHOW_FORTHCOMING && (
+			<section class="forthcoming" aria-labelledby="forthcoming-heading">
+				<div class="findings__inner">
+					<SectionHeader
+						id="forthcoming-heading"
+						label="Next"
+						title="A forthcoming title"
+						description="Details will publish here once the title, date, and publisher are confirmed."
+					/>
+				</div>
+			</section>
+		)
+	}
+
+	<CTASection
+		title="Bring the frameworks into the room."
+		description="Book a keynote built on R:IQ, everyday millionaire habits, or the leadership work behind the books."
+	/>
+</Layout>
+
+<style>
+	.book-block {
+		background: var(--color-base-canvas);
+		border-top: 1px solid var(--border-light);
+		padding: clamp(3rem, 8vw, 5.5rem) 1.25rem;
+	}
+
+	.book-block--alt {
+		background:
+			radial-gradient(
+				90% 70% at 0% 0%,
+				color-mix(in srgb, #c65d21 5%, transparent) 0%,
+				transparent 50%
+			),
+			#fbfbfd;
+	}
+
+	.book-block__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+		display: grid;
+		gap: 2rem;
+		align-items: start;
+	}
+
+	.book-block__cover {
+		width: min(100%, 16rem);
+		margin-inline: auto;
+		aspect-ratio: 3 / 4.5;
+		background: color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+		box-shadow: var(--shadow-md);
+		overflow: hidden;
+	}
+
+	.book-block__cover img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		background: #fff;
+	}
+
+	.book-block__meta {
+		margin: 0;
+		color: #c65d21;
+	}
+
+	.book-block__copy h2 {
+		margin: 0.5rem 0 0;
+		font-size: clamp(1.75rem, 3vw, 2.35rem);
+	}
+
+	.book-block__sub {
+		margin: 0.4rem 0 0;
+		font-size: 1rem;
+		color: #5c5c61;
+		max-width: 40ch;
+	}
+
+	.book-block__hook {
+		margin: 1.15rem 0 0;
+		font-family: var(--font-heading);
+		font-weight: 500;
+		font-size: 1.125rem;
+		letter-spacing: -0.02em;
+		line-height: 1.45;
+		color: #1d1d1f;
+		max-width: 42ch;
+	}
+
+	.book-block__biblio {
+		margin: 0.75rem 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.03em;
+		color: #5c5c61;
+		max-width: none;
+	}
+
+	.book-block__copy ul {
+		list-style: none;
+		margin: 1.25rem 0 0;
+		padding: 0;
+		display: grid;
+		gap: 0.65rem;
+	}
+
+	.book-block__copy li {
+		padding-left: 1rem;
+		position: relative;
+		font-size: 1rem;
+		line-height: 1.55;
+		color: #3a3a3d;
+		max-width: 52ch;
+	}
+
+	.book-block__copy li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 0.4rem;
+		height: 0.4rem;
+		background: #c65d21;
+	}
+
+	.book-block__actions {
+		margin-top: 1.5rem;
+	}
+
+	.findings,
+	.forthcoming {
+		background: var(--color-base-canvas);
+		border-top: 1px solid var(--border-light);
+		padding: clamp(3.25rem, 8vw, 5.75rem) 1.25rem;
+	}
+
+	.findings__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	.findings__grid {
+		list-style: none;
+		margin: 2rem 0 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.65rem;
+	}
+
+	.findings__grid li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		padding: 1.1rem 1rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.625rem;
+		background: #fff;
+		border-top: 2px solid #c65d21;
+		font-family: var(--font-mono);
+		font-size: 0.625rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		line-height: 1.4;
+		color: #5c5c61;
+	}
+
+	.findings__grid span {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 1.5rem;
+		letter-spacing: -0.03em;
+		text-transform: none;
+		color: #1d1d1f;
+	}
+
+	.findings__note {
+		margin: 1.35rem 0 0;
+		max-width: 62ch;
+		color: #5c5c61;
+	}
+
+	@media (min-width: 768px) {
+		.book-block__inner {
+			grid-template-columns: 14rem 1fr;
+			gap: 3rem;
+			align-items: center;
+		}
+
+		.book-block__cover {
+			width: 100%;
+			margin-inline: 0;
+		}
+
+		.findings__grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>

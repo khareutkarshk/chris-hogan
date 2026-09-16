@@ -1,0 +1,368 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import TimelineItem from '../components/sections/TimelineItem.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Button from '../components/ui/Button.astro';
+import { withBase } from '../lib/paths';
+
+const timeline = [
+	{
+		period: 'Early career',
+		title: 'Bill collector',
+		body: 'Saw paycheck-to-paycheck struggle firsthand — the origin of a teaching style that stays practical, not theoretical.',
+	},
+	{
+		period: 'Pre-2004',
+		title: 'Banking, wealth management, then mortgage VP',
+		body: 'Helped clients manage money and businesses before a silent-auction meeting with Dave Ramsey redirected the next chapter.',
+	},
+	{
+		period: 'Aug 2004 – Mar 2021',
+		title: 'Ramsey Solutions — coach, then Chief Strategist',
+		body: 'More than 16 years as a national personality: financial coach; later Chief Strategist, Retirement, Business & Leadership. Contributor and fill-in on The Dave Ramsey Show; EntreLeadership; Financial Peace and SmartMoney events.',
+	},
+	{
+		period: 'Jan 2016',
+		title: 'Retire Inspired published',
+		body: 'Introduced retirement as a financial number — and R:IQ — then debuted as the #1 book in America the week of January 25, 2016 (Publishers Weekly, 68,950 copies).',
+	},
+	{
+		period: 'Jan 2019',
+		title: 'Everyday Millionaires published',
+		body: 'Built on research with 10,000+ U.S. millionaires: ordinary people, consistent habits, no inherited-wealth myth.',
+	},
+	{
+		period: 'Mar 2021 – present',
+		title: 'Hogan Consulting Group, Nashville',
+		body: 'Independent author, speaker, and coach. Business and executive consulting, Mentoring XL, and keynotes for leaders who need execution — not more inspiration.',
+	},
+];
+
+const athletics = [
+	{ value: '1991', label: 'NAIA national championship team' },
+	{ value: '2×', label: 'NAIA & Mid-South Defensive Player of the Year' },
+	{ value: '3 yrs', label: 'Team captain' },
+	{ value: '2008', label: 'Georgetown Athletics Hall of Fame' },
+];
+---
+
+<Layout
+	header="light"
+	preloadImage="/images/speaking/stage-header.webp"
+	title="About Chris Hogan | Author, Speaker, Coach"
+	description="Two-time national bestselling author, Georgetown Athletics Hall of Fame, and founder of Hogan Consulting Group in Nashville."
+>
+	<PageHero
+		surface="photo"
+		label="About"
+		title="From championship rooms to the next stage."
+		support="A competitor’s mindset applied to retirement, wealth-building, and high-performance leadership."
+		imageJpg="/images/speaking/stage-header.jpg"
+		imageWebp="/images/speaking/stage-header.webp"
+		imageAlt="Chris Hogan on a conference stage"
+	/>
+
+	<section class="about-bio" aria-labelledby="bio-heading">
+		<div class="about-bio__inner">
+			<div class="about-bio__copy">
+				<SectionHeader
+					id="bio-heading"
+					label="The story"
+					title="Built to move people from intention to execution."
+				/>
+				<p>
+					Chris Hogan is a two-time national bestselling author, keynote speaker, and leadership
+					coach who built his reputation helping people and organizations execute on retirement,
+					wealth-building, and high-performance leadership. The through-line is simple: purpose
+					without a plan is just a slogan. He teaches people to think bigger, lead stronger, and
+					live with purpose — then to do the work.
+				</p>
+				<p>
+					A former NAIA national champion and All-American football player at Georgetown College —
+					later inducted into the school’s Athletics Hall of Fame — Chris brings a competitor’s
+					mindset to leadership and performance. Three years as captain, two-time NAIA and
+					Mid-South Conference Defensive Player of the Year, Kodak All-American: the résumé is
+					sports, the lesson is accountability.
+				</p>
+				<p>
+					His professional path started in collections, where he saw families living
+					paycheck-to-paycheck. Banking and wealth management followed, then a vice-president role
+					at a mortgage company helping clients manage money and businesses. After meeting Dave
+					Ramsey at a silent auction, he joined Ramsey Solutions in August 2004. Over more than 16
+					years he served as a financial coach and later as Chief Strategist, Retirement, Business
+					&amp; Leadership — a national personality on radio, events, and The Chris Hogan Show.
+				</p>
+				<p>
+					His books <em>Retire Inspired</em> and <em>Everyday Millionaires</em> introduced practical
+					frameworks like R:IQ and the habits of everyday wealth-builders, backed by research with
+					more than 10,000 U.S. millionaires. After more than 16 years at Ramsey Solutions, Chris
+					founded Hogan Consulting Group in 2021. From Nashville he now works with executives,
+					teams, and associations who need clarity, direction, and growth.
+				</p>
+				<p class="about-bio__mission">
+					Mission: educate, encourage, and empower people to do more in retirement, leadership,
+					business, and life.
+				</p>
+				<div class="about-bio__actions">
+					<Button href={withBase('/speaking')} variant="primary" size="md">See speaking topics</Button>
+					<Button href={withBase('/books')} variant="ghost" size="md">Read the books</Button>
+				</div>
+			</div>
+
+			<figure class="about-bio__media">
+				<picture>
+					<source srcset={withBase('/images/about/chris-portrait.webp')} type="image/webp" />
+					<img
+						src={withBase('/images/about/chris-portrait.jpg')}
+						alt="Portrait of Chris Hogan"
+						width="900"
+						height="1347"
+						decoding="async"
+					/>
+				</picture>
+			</figure>
+		</div>
+	</section>
+
+	<section class="about-section" aria-labelledby="timeline-heading">
+		<div class="about-section__inner">
+			<SectionHeader
+				id="timeline-heading"
+				label="Career"
+				labelAccent="copper"
+				title="The arc, without the myth."
+				description="Collector. Banker. Ramsey-era strategist. Independent coach. Each chapter sharpened the same message: execution beats intention."
+			/>
+			<ol class="about-timeline">
+				{
+					timeline.map((item) => (
+						<TimelineItem period={item.period} title={item.title} body={item.body} />
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section class="about-athletics theme-obsidian" aria-labelledby="athletics-heading">
+		<div class="about-section__inner">
+			<SectionHeader
+				id="athletics-heading"
+				label="Athletics"
+				title="Championship habits travel."
+				description="Georgetown College Tigers. Woodford County, Kentucky. Leadership learned under Saturday lights — then applied to rooms that don’t keep a scoreboard."
+				tone="dark"
+			/>
+			<ul class="about-athletics__stats">
+				{
+					athletics.map((item) => (
+						<li>
+							<span>{item.value}</span>
+							{item.label}
+						</li>
+					))
+				}
+			</ul>
+			<p class="about-athletics__note">
+				Kodak All-American. School records (as of the Hall of Fame bio) include 322 career yards
+				from sacks and 462 yards from tackles for loss. The only small-college player nominated for
+				the Outland Trophy, per Georgetown Athletics.
+			</p>
+		</div>
+	</section>
+
+	<section class="about-section" aria-labelledby="education-heading">
+		<div class="about-section__inner about-section__inner--narrow">
+			<SectionHeader id="education-heading" label="Education" title="Two degrees. One through-line." />
+			<div class="about-edu">
+				<article>
+					<p class="text-meta about-edu__meta">1993</p>
+					<h3>B.A., Communications</h3>
+					<p>Georgetown College, Georgetown, Kentucky. Communications honors student; inaugural President’s Ambassadors class.</p>
+				</article>
+				<article>
+					<p class="text-meta about-edu__meta">Graduate</p>
+					<h3>M.A., Communications</h3>
+					<p>
+						California University of Pennsylvania (now PennWest California). Organizational and
+						business emphasis. Football was Georgetown — the master’s was Cal U of PA.
+					</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<CTASection
+		title="Bring this standard to your next room."
+		description="Keynotes, workshops, and executive consulting through Hogan Consulting Group — Nashville."
+	/>
+</Layout>
+
+<style>
+	.about-bio,
+	.about-section {
+		background: var(--color-base-canvas);
+		border-top: 1px solid var(--border-light);
+		padding: clamp(3.5rem, 9vw, 6rem) 1.25rem;
+	}
+
+	.about-bio__inner,
+	.about-section__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	.about-section__inner--narrow {
+		width: min(100%, 56rem);
+	}
+
+	.about-bio__inner {
+		display: grid;
+		gap: 2.5rem;
+		align-items: start;
+	}
+
+	.about-bio__copy p {
+		margin: 1.15rem 0 0;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		color: #3a3a3d;
+		max-width: 62ch;
+	}
+
+	.about-bio__copy p:first-of-type {
+		margin-top: 1.75rem;
+	}
+
+	.about-bio__mission {
+		font-family: var(--font-heading);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		color: #1d1d1f !important;
+	}
+
+	.about-bio__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.75rem;
+	}
+
+	.about-bio__media {
+		margin: 0;
+		width: min(100%, 22rem);
+	}
+
+	.about-bio__media img {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		filter: contrast(1.02) saturate(0.94);
+	}
+
+	.about-timeline {
+		list-style: none;
+		margin: 2rem 0 0;
+		padding: 0;
+	}
+
+	.about-athletics {
+		padding: clamp(3.5rem, 9vw, 6rem) 1.25rem;
+		border-top: 1px solid var(--border-dark);
+	}
+
+	.about-athletics__stats {
+		list-style: none;
+		margin: 2.25rem 0 0;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.about-athletics__stats li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		padding: 1rem 1rem 1.05rem;
+		border: 1px solid var(--border-dark);
+		border-top: 2px solid #c65d21;
+		background: rgba(255, 255, 255, 0.03);
+		font-family: var(--font-mono);
+		font-size: 0.625rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		line-height: 1.4;
+		color: color-mix(in srgb, #fff 62%, transparent);
+	}
+
+	.about-athletics__stats span {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 1.35rem;
+		letter-spacing: -0.03em;
+		text-transform: none;
+		color: #fff;
+	}
+
+	.about-athletics__note {
+		margin: 1.5rem 0 0;
+		max-width: 62ch;
+		font-size: 0.9375rem;
+		line-height: 1.65;
+		color: color-mix(in srgb, #fff 68%, transparent);
+	}
+
+	.about-edu {
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.about-edu article {
+		padding: 1.35rem 1.25rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.625rem;
+		background: #fff;
+		border-top: 2px solid #c65d21;
+	}
+
+	.about-edu__meta {
+		margin: 0;
+		color: #c65d21;
+	}
+
+	.about-edu h3 {
+		margin: 0.45rem 0 0;
+		font-size: 1.25rem;
+	}
+
+	.about-edu p:last-child {
+		margin: 0.55rem 0 0;
+		color: #5c5c61;
+		max-width: none;
+	}
+
+	@media (min-width: 900px) {
+		.about-bio__inner {
+			grid-template-columns: 1.2fr 0.8fr;
+			gap: 4rem;
+		}
+
+		.about-bio__media {
+			justify-self: end;
+			width: min(100%, 26rem);
+			position: sticky;
+			top: 5.5rem;
+		}
+
+		.about-athletics__stats {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.about-edu {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+</style>

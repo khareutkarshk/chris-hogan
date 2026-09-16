@@ -2,6 +2,8 @@
 /**
  * BookCard — cover + one-line hook
  */
+import { withBase } from '../../lib/paths';
+
 interface Props {
 	title: string;
 	hook: string;
@@ -21,16 +23,16 @@ const {
 	coverWebp,
 	coverWidth = 310,
 	coverHeight = 500,
-	href = '#books',
+	href = '/books',
 } = Astro.props;
 ---
 
-<a class="book-card" href={href}>
+<a class="book-card" href={withBase(href)}>
 	<div class="book-card__cover">
 		<picture>
-			<source srcset={coverWebp} type="image/webp" />
+			<source srcset={withBase(coverWebp)} type="image/webp" />
 			<img
-				src={coverJpg}
+				src={withBase(coverJpg)}
 				alt={`Cover of ${title}`}
 				width={coverWidth}
 				height={coverHeight}

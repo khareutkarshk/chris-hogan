@@ -1,0 +1,695 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Button from '../components/ui/Button.astro';
+import { withBase } from '../lib/paths';
+
+const topics = [
+	{
+		id: 'leadership-that-matters',
+		title: 'Leadership That Matters',
+		description: 'Developing leaders who inspire trust, accountability, performance, and growth.',
+		takeaways: [
+			'Lead with purpose',
+			'Build trust faster',
+			'Create accountability',
+			'Improve team performance',
+			'Strengthen culture',
+		],
+	},
+	{
+		id: 'the-power-of-purpose',
+		title: 'The Power of Purpose',
+		description:
+			'Helping people discover why they do what they do — and how purpose fuels performance.',
+		takeaways: [
+			'Clarify purpose',
+			'Increase engagement',
+			'Improve focus',
+			'Strengthen resilience',
+			'Create meaningful impact',
+		],
+	},
+	{
+		id: 'winning-the-performance-game',
+		title: 'Winning the Performance Game',
+		description: 'High-performance strategies for individuals, teams, and organizations.',
+		takeaways: [
+			'Improve execution',
+			'Increase productivity',
+			'Build momentum',
+			'Develop winning habits',
+			'Drive measurable results',
+		],
+	},
+	{
+		id: 'resilience-in-a-changing-world',
+		title: 'Resilience in a Changing World',
+		description: 'How leaders and teams thrive during uncertainty and change.',
+		takeaways: [
+			'Adapt faster',
+			'Overcome adversity',
+			'Maintain confidence',
+			'Lead through challenges',
+			'Build long-term resilience',
+		],
+	},
+	{
+		id: 'everyday-leadership',
+		title: 'Everyday Leadership',
+		description: 'Leadership lessons anyone can use — regardless of title or position.',
+		takeaways: [
+			'Lead from where you are',
+			'Influence others positively',
+			'Improve communication',
+			'Increase engagement',
+			'Strengthen relationships',
+		],
+	},
+];
+
+const overs = [
+	{
+		title: 'Overthinking',
+		rule: 'The THINK → DECIDE → ACT rule',
+		body: 'Overthinkers confuse thinking with progress. Sort what you can control, what you can influence, and what you cannot. Then stop asking “what if?” and start asking “what now?”',
+	},
+	{
+		title: 'Overstressed',
+		rule: 'The PRESSURE Audit™',
+		body: 'Stress is demands exceeding resources. Fill the four tanks — physical, mental, emotional, spiritual — and never make a major decision when all four are empty.',
+	},
+	{
+		title: 'Overworked',
+		rule: 'The 3D Method™',
+		body: 'Most people are not overworked. They are under-prioritized. Do, Delegate, or Delete. Activity is not achievement. Movement is not progress.',
+	},
+	{
+		title: 'Overwhelmed',
+		rule: 'The Mountain Method™',
+		body: 'Overwhelm happens when the brain tries to carry the whole mountain. Write everything down. Sort Now, Next, Later, Never. Then take the next step.',
+	},
+];
+
+const unders = [
+	{
+		title: 'Underappreciated',
+		rule: 'The Visibility Framework™',
+		body: 'People rarely appreciate what they do not understand. Communicate wins, document contributions, share progress — without making applause the fuel.',
+	},
+	{
+		title: 'Undervalued',
+		rule: 'The Value Equation™',
+		body: 'Value = results + relationships + reputation. Every quarter ask: what skill would double my value? Then learn it.',
+	},
+	{
+		title: 'Underpaid',
+		rule: 'Income follows value — and the communication of value',
+		body: 'Measure results. Increase market value. Negotiate with evidence, not feelings.',
+	},
+	{
+		title: 'Underconnected',
+		rule: 'Connection requires intention',
+		body: 'High performers isolate under load. Rebuild the people who keep you honest — mentors, peers, and the relationships that restore capacity.',
+	},
+];
+
+const formats = [
+	{
+		name: 'Keynote',
+		detail: '45–90 minutes',
+		note: 'The mainstage talk — story, framework, and takeaways the room can use Monday morning.',
+		featured: true,
+	},
+	{ name: 'Leadership workshop', detail: 'Half-day' },
+	{ name: 'Executive workshop', detail: 'Half-day or full-day' },
+	{ name: 'Conference breakout', detail: 'Session format' },
+	{ name: 'Fireside chat', detail: 'Hosted conversation' },
+	{ name: 'Moderator / host', detail: 'Program leadership' },
+	{ name: 'Panel participant', detail: 'Discussion format' },
+];
+
+const featuredFormat = formats.find((f) => f.featured) ?? formats[0];
+const otherFormats = formats.filter((f) => !f.featured);
+
+const audiences = [
+	'Corporate conferences',
+	'Leadership summits',
+	'Sales meetings',
+	'Financial services events',
+	'Healthcare conferences',
+	'Educational institutions',
+	'Professional associations',
+	'Entrepreneur conferences',
+	'Franchise organizations',
+	'Sports organizations',
+	'Faith-based events',
+	'Government & nonprofit',
+];
+
+const whyBook = [
+	'Authentic and relatable',
+	'Highly engaging storyteller',
+	'Practical, actionable content',
+	'Professional and easy to work with',
+	'Customized presentations',
+	'Strong audience interaction',
+	'Appeals across industries',
+	'Leadership and performance expertise',
+	'Works with executive and frontline rooms',
+	'Delivers lasting impact',
+];
+---
+
+<Layout
+	header="light"
+	preloadImage="/images/speaking/stage-header.webp"
+	title="Speaking | Chris Hogan"
+	description="Keynotes and workshops on leadership, purpose, performance, and resilience — plus the OVER / UNDER Framework™."
+>
+	<PageHero
+		surface="photo"
+		label="Speaking"
+		title="Rooms that need more than motivation."
+		support="Keynotes and workshops built for executives, teams, and associations ready to lead with clarity."
+		imageJpg="/images/speaking/stage-header.jpg"
+		imageWebp="/images/speaking/stage-header.webp"
+		imageAlt="Chris Hogan on a conference stage"
+	/>
+
+	<section class="speak-section" id="topics" aria-labelledby="topics-heading">
+		<div class="speak-section__inner">
+			<SectionHeader
+				id="topics-heading"
+				label="Signature topics"
+				labelAccent="copper"
+				title="Five talks. One standard: action after the applause."
+				description="Each keynote blends storytelling with takeaways people can use the next morning."
+			/>
+
+			<div class="topic-list">
+				{
+					topics.map((topic, i) => (
+						<article class="topic-detail" id={topic.id}>
+							<p class="topic-detail__index text-meta">{String(i + 1).padStart(2, '0')}</p>
+							<h3 class="topic-detail__title">{topic.title}</h3>
+							<p class="topic-detail__desc">{topic.description}</p>
+							<ul class="topic-detail__takes">
+								{topic.takeaways.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="speak-framework theme-obsidian" id="framework" aria-labelledby="framework-heading">
+		<div class="speak-section__inner">
+			<SectionHeader
+				id="framework-heading"
+				label="Signature framework"
+				title="The OVER / UNDER Framework™"
+				description="Most people do not have a capability problem. They have an overload problem. Manage the OVERs. Strategically improve the UNDERs."
+				tone="dark"
+			/>
+
+			<div class="framework-grid">
+				<div>
+					<p class="framework-kicker text-meta">The OVER Method™</p>
+					<ul class="framework-steps">
+						{
+							overs.map((item) => (
+								<li>
+									<h3>{item.title}</h3>
+									<p class="framework-steps__rule">{item.rule}</p>
+									<p>{item.body}</p>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+				<div>
+					<p class="framework-kicker text-meta">The UNDER Method™</p>
+					<ul class="framework-steps">
+						{
+							unders.map((item) => (
+								<li>
+									<h3>{item.title}</h3>
+									<p class="framework-steps__rule">{item.rule}</p>
+									<p>{item.body}</p>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+			<p class="framework-note">
+				Public treatment of the framework. A fuller private version is available for booked
+				engagements.
+			</p>
+		</div>
+	</section>
+
+	<section class="speak-section speak-section--formats" id="formats" aria-labelledby="formats-heading">
+		<div class="speak-section__inner">
+			<SectionHeader
+				id="formats-heading"
+				label="Formats"
+				labelAccent="copper"
+				title="How the work shows up."
+				description="From a 45-minute keynote to a full-day executive room. Customized to the goals of the event."
+			/>
+
+			<div class="format-lead">
+				<p class="format-lead__kicker text-meta">{featuredFormat.detail}</p>
+				<h3 class="format-lead__name">{featuredFormat.name}</h3>
+				{featuredFormat.note && <p class="format-lead__note">{featuredFormat.note}</p>}
+			</div>
+
+			<ul class="format-list">
+				{
+					otherFormats.map((item) => (
+						<li>
+							<span class="format-list__name">{item.name}</span>
+							<span class="format-list__detail">{item.detail}</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="speak-section speak-section--quiet" id="audiences" aria-labelledby="audiences-heading">
+		<div class="speak-section__inner">
+			<SectionHeader
+				id="audiences-heading"
+				label="Rooms"
+				labelAccent="copper"
+				title="Audience types"
+				description="The message holds from 50 executives to a conference hall."
+			/>
+			<ul class="audience-list">
+				{audiences.map((item) => <li>{item}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="speak-section" id="why" aria-labelledby="why-heading">
+		<div class="speak-section__inner speak-section__inner--split">
+			<div>
+				<SectionHeader
+					id="why-heading"
+					label="For planners"
+					title="Why event planners book Chris"
+				/>
+				<ul class="why-list">
+					{whyBook.map((item) => <li>{item}</li>)}
+				</ul>
+			</div>
+			<figure class="intro-block">
+				<p class="text-meta intro-block__label">Sample introduction</p>
+				<blockquote>
+					<p>
+						Today’s speaker has dedicated his career to helping people discover what is possible
+						when purpose, leadership, and action come together.
+					</p>
+					<p>
+						As a two-time national bestselling author, entrepreneur, consultant, and keynote
+						speaker, he has worked with executives, entrepreneurs, and leaders across the country.
+					</p>
+					<p>Please join me in welcoming Chris Hogan.</p>
+				</blockquote>
+			</figure>
+		</div>
+	</section>
+
+	<div class="speak-cta-wrap">
+		<div class="speak-cta-wrap__inner">
+			<Button href="#contact" variant="copper" size="md">Request a date</Button>
+			<Button href={withBase('/about')} variant="ghost" size="md">Read the bio</Button>
+		</div>
+	</div>
+
+	<CTASection
+		title="Book the keynote. Keep the takeaways."
+		description="Share the date, audience, and desired outcome. Hogan Consulting Group will follow up with availability."
+	/>
+</Layout>
+
+<style>
+	.speak-section {
+		background: var(--color-base-canvas);
+		border-top: 1px solid var(--border-light);
+		padding: clamp(3.25rem, 8vw, 5.75rem) 1.25rem;
+	}
+
+	.speak-section--quiet {
+		padding-block: clamp(2.75rem, 6vw, 4.5rem);
+	}
+
+	.speak-section__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	.topic-list {
+		display: grid;
+		gap: 0.85rem;
+		margin-top: 2rem;
+	}
+
+	.topic-detail {
+		padding: 1.35rem 1.25rem 1.35rem 1.35rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.625rem;
+		background: #fff;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.topic-detail::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 3px;
+		background: #c65d21;
+	}
+
+	.topic-detail__index {
+		margin: 0;
+		color: #c65d21;
+	}
+
+	.topic-detail__title {
+		margin: 0.4rem 0 0;
+		font-size: clamp(1.2rem, 2vw, 1.45rem);
+		color: #1d1d1f;
+	}
+
+	.topic-detail__desc {
+		margin: 0.5rem 0 0;
+		color: #5c5c61;
+		max-width: 48ch;
+	}
+
+	.topic-detail__takes {
+		list-style: none;
+		margin: 1rem 0 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.topic-detail__takes li {
+		font-family: var(--font-mono);
+		font-size: 0.625rem;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: #3a3a3d;
+		border: 1px solid var(--border-light);
+		border-radius: 999px;
+		padding: 0.35rem 0.65rem;
+		background: #fbfbfd;
+	}
+
+	.speak-framework {
+		padding: clamp(3.25rem, 8vw, 5.75rem) 1.25rem;
+		border-top: 1px solid var(--border-dark);
+	}
+
+	.framework-grid {
+		display: grid;
+		gap: 2.5rem;
+		margin-top: 2.5rem;
+	}
+
+	.framework-kicker {
+		margin: 0 0 1rem;
+		color: color-mix(in srgb, #fff 50%, transparent);
+	}
+
+	.framework-steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.framework-steps li {
+		padding: 1.1rem 0;
+		border-top: 1px solid var(--border-dark);
+	}
+
+	.framework-steps li:last-child {
+		border-bottom: 1px solid var(--border-dark);
+	}
+
+	.framework-steps h3 {
+		margin: 0;
+		font-size: 1.25rem;
+		color: #fff;
+	}
+
+	.framework-steps__rule {
+		margin: 0.3rem 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #c65d21;
+		max-width: none;
+	}
+
+	.framework-steps p:last-child {
+		margin: 0.45rem 0 0;
+		color: color-mix(in srgb, #fff 70%, transparent);
+		max-width: 46ch;
+	}
+
+	.framework-note {
+		margin: 1.75rem 0 0;
+		font-size: 0.875rem;
+		color: color-mix(in srgb, #fff 45%, transparent);
+		max-width: none;
+	}
+
+	.speak-section--formats {
+		background: #fff;
+	}
+
+	.format-lead {
+		margin-top: 2.25rem;
+		padding-bottom: 1.75rem;
+		border-bottom: 1px solid var(--border-light);
+		max-width: 40rem;
+	}
+
+	.format-lead__kicker {
+		margin: 0;
+		color: #c65d21;
+	}
+
+	.format-lead__name {
+		margin: 0.55rem 0 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+		letter-spacing: -0.03em;
+		line-height: 1.1;
+		color: #1d1d1f;
+	}
+
+	.format-lead__note {
+		margin: 0.85rem 0 0;
+		font-size: 1.05rem;
+		line-height: 1.6;
+		color: #5c5c61;
+		max-width: 42ch;
+	}
+
+	.format-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.format-list li {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.75rem 1.5rem;
+		align-items: baseline;
+		padding: 1.05rem 0;
+		border-bottom: 1px solid var(--border-light);
+	}
+
+	.format-list__name {
+		font-family: var(--font-heading);
+		font-weight: 600;
+		font-size: 1.0625rem;
+		letter-spacing: -0.02em;
+		color: #1d1d1f;
+	}
+
+	.format-list__detail {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #86868b;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.audience-list {
+		list-style: none;
+		margin: 1.75rem 0 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.audience-list li {
+		font-size: 0.875rem;
+		font-weight: 500;
+		padding: 0.55rem 0.85rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.5rem;
+		background: #fff;
+		color: #1d1d1f;
+	}
+
+	.why-list {
+		list-style: none;
+		margin: 1.5rem 0 0;
+		padding: 0;
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.why-list li {
+		padding-left: 1rem;
+		position: relative;
+		font-size: 1rem;
+		line-height: 1.5;
+		color: #3a3a3d;
+		max-width: none;
+	}
+
+	.why-list li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 0.4rem;
+		height: 0.4rem;
+		border-radius: 1px;
+		background: #c65d21;
+	}
+
+	.intro-block {
+		margin: 2rem 0 0;
+		padding: 1.5rem 1.35rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.75rem;
+		background: #fff;
+		border-left: 3px solid #c65d21;
+	}
+
+	.intro-block__label {
+		margin: 0 0 0.85rem;
+		color: #c65d21;
+	}
+
+	.intro-block blockquote {
+		margin: 0;
+	}
+
+	.intro-block p {
+		margin: 0 0 0.85rem;
+		font-family: var(--font-heading);
+		font-weight: 500;
+		font-size: 1.05rem;
+		letter-spacing: -0.02em;
+		line-height: 1.5;
+		color: #1d1d1f;
+		max-width: 42ch;
+	}
+
+	.intro-block p:last-child {
+		margin-bottom: 0;
+	}
+
+	.speak-cta-wrap {
+		background: var(--color-base-canvas);
+		border-top: 1px solid var(--border-light);
+		padding: 1.5rem 1.25rem 2rem;
+	}
+
+	.speak-cta-wrap__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	@media (min-width: 768px) {
+		.topic-list {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.format-list {
+			max-width: 40rem;
+		}
+
+		.framework-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 3.5rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.topic-list {
+			grid-template-columns: 1fr;
+		}
+
+		.topic-detail {
+			display: grid;
+			grid-template-columns: 3rem 1fr 1fr;
+			column-gap: 1.25rem;
+			align-items: start;
+		}
+
+		.topic-detail__desc {
+			grid-column: 2;
+		}
+
+		.topic-detail__takes {
+			grid-column: 3;
+			grid-row: 1 / span 3;
+			align-self: center;
+			margin-top: 0;
+		}
+
+		.speak-section__inner--split {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 3.5rem;
+			align-items: start;
+		}
+
+		.intro-block {
+			margin-top: 0;
+		}
+	}
+</style>

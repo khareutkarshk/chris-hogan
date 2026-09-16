@@ -3,6 +3,8 @@
  * MediaMention — compact featured-in logo strip
  * Equal visual weight, no captions, no oversized artwork.
  */
+import { withBase } from '../../lib/paths';
+
 interface Outlet {
 	name: string;
 	src: string;
@@ -58,10 +60,10 @@ const {
 			<li class="media-strip__item">
 				{item.srcWebp ? (
 					<picture>
-						<source srcset={item.srcWebp} type="image/webp" />
+						<source srcset={withBase(item.srcWebp)} type="image/webp" />
 						<img
 							class="media-strip__logo"
-							src={item.src}
+							src={withBase(item.src)}
 							alt={item.name}
 							width={item.width}
 							height={item.height}
@@ -72,7 +74,7 @@ const {
 				) : (
 					<img
 						class="media-strip__logo"
-						src={item.src}
+						src={withBase(item.src)}
 						alt={item.name}
 						width={item.width}
 						height={item.height}

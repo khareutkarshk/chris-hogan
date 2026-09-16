@@ -12,32 +12,38 @@ import Testimonial from '../components/sections/Testimonial.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import Button from '../components/ui/Button.astro';
+import { withBase } from '../lib/paths';
 
 const topics = [
 	{
 		title: 'Leadership That Matters',
 		description: 'Developing leaders who inspire trust, accountability, performance, and growth.',
+		href: '/speaking#leadership-that-matters',
 	},
 	{
 		title: 'The Power of Purpose',
 		description: 'Helping people discover why they do what they do — and how purpose fuels performance.',
+		href: '/speaking#the-power-of-purpose',
 	},
 	{
 		title: 'Winning the Performance Game',
 		description: 'High-performance strategies for individuals, teams, and organizations.',
+		href: '/speaking#winning-the-performance-game',
 	},
 	{
 		title: 'Resilience in a Changing World',
 		description: 'How leaders and teams thrive during uncertainty and change.',
+		href: '/speaking#resilience-in-a-changing-world',
 	},
 	{
 		title: 'Everyday Leadership',
 		description: 'Leadership lessons anyone can use — regardless of title or position.',
+		href: '/speaking#everyday-leadership',
 	},
 ];
 ---
 
-<Layout>
+<Layout preloadImage="/images/hero-chris-keynote.webp">
 	<Hero />
 
 	<ProofStrip />
@@ -60,7 +66,7 @@ const topics = [
 						<TopicCard
 							title={topic.title}
 							description={topic.description}
-							href="#contact"
+							href={topic.href}
 							index={i + 1}
 						/>
 					))
@@ -68,7 +74,7 @@ const topics = [
 			</div>
 
 			<div class="home-section__action">
-				<Button href="#contact" variant="copper" size="md">Book a topic</Button>
+				<Button href={withBase('/speaking')} variant="copper" size="md">See all topics</Button>
 				<Button href="#contact" variant="secondary" size="md">Request a custom keynote</Button>
 			</div>
 		</div>
@@ -92,7 +98,7 @@ const topics = [
 					coverWebp="/images/books/retire-inspired.webp"
 					coverWidth={620}
 					coverHeight={1000}
-					href="#contact"
+					href="/books#retire-inspired"
 				/>
 				<BookCard
 					title="Everyday Millionaires"
@@ -102,8 +108,11 @@ const topics = [
 					coverWebp="/images/books/everyday-millionaires.webp"
 					coverWidth={267}
 					coverHeight={400}
-					href="#contact"
+					href="/books#everyday-millionaires"
 				/>
+			</div>
+			<div class="home-section__action">
+				<Button href={withBase('/books')} variant="ghost" size="md">Explore both titles</Button>
 			</div>
 		</div>
 	</section>

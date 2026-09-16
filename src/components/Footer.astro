@@ -2,6 +2,8 @@
 /**
  * Site footer — contact, social, copyright
  */
+import { withBase } from '../lib/paths';
+
 const year = new Date().getFullYear();
 
 const social = [
@@ -11,10 +13,10 @@ const social = [
 ];
 
 const links = [
-	{ href: '#about', label: 'About' },
-	{ href: '#speaking', label: 'Speaking' },
-	{ href: '#books', label: 'Books' },
-	{ href: '#contact', label: 'Contact' },
+	{ href: '/about', label: 'About' },
+	{ href: '/speaking', label: 'Speaking' },
+	{ href: '/books', label: 'Books' },
+	{ href: '/#contact', label: 'Contact' },
 ];
 ---
 
@@ -27,11 +29,7 @@ const links = [
 		</div>
 
 		<nav class="site-footer__nav" aria-label="Footer">
-			{
-				links.map((link) => (
-					<a href={link.href}>{link.label}</a>
-				))
-			}
+			{links.map((link) => <a href={withBase(link.href)}>{link.label}</a>)}
 		</nav>
 
 		<div class="site-footer__social">
@@ -44,9 +42,7 @@ const links = [
 			}
 		</div>
 
-		<p class="site-footer__copy">
-			© {year} Chris Hogan. All rights reserved.
-		</p>
+		<p class="site-footer__copy">© {year} Chris Hogan. All rights reserved.</p>
 	</div>
 </footer>
 

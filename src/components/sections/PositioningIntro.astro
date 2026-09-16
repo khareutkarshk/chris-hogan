@@ -4,6 +4,7 @@
  */
 import Button from '../ui/Button.astro';
 import SectionHeader from '../ui/SectionHeader.astro';
+import { withBase } from '../../lib/paths';
 
 interface Props {
 	id?: string;
@@ -30,15 +31,15 @@ const statement =
 				leadership, business, and life.
 			</p>
 			<div class="positioning__actions">
-				<Button href="#speaking" variant="ghost" size="md">See speaking topics</Button>
+				<Button href={withBase('/about')} variant="ghost" size="md">Read the full story</Button>
 			</div>
 		</div>
 
 		<figure class="positioning__media">
 			<picture>
-				<source srcset="/images/about/chris-portrait.webp" type="image/webp" />
+				<source srcset={withBase('/images/about/chris-portrait.webp')} type="image/webp" />
 				<img
-					src="/images/about/chris-portrait.jpg"
+					src={withBase('/images/about/chris-portrait.jpg')}
 					alt="Portrait of Chris Hogan"
 					width="900"
 					height="1347"

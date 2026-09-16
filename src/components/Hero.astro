@@ -5,6 +5,7 @@
  */
 import Header from './Header.astro';
 import Button from './ui/Button.astro';
+import { withBase } from '../lib/paths';
 
 interface Props {
 	brand?: string;
@@ -34,10 +35,10 @@ const {
 <section class="hero" aria-label="Introduction">
 	<div class="hero__media" aria-hidden="true">
 		<picture>
-			<source srcset={imageWebpSrc} type="image/webp" />
+			<source srcset={withBase(imageWebpSrc)} type="image/webp" />
 			<img
 				class="hero__image"
-				src={imageSrc}
+				src={withBase(imageSrc)}
 				alt=""
 				width="2135"
 				height="3200"
@@ -63,10 +64,10 @@ const {
 			<h1 class="hero__headline" data-hero-animate>{headline}</h1>
 			<p class="hero__support" data-hero-animate>{support}</p>
 			<div class="hero__actions" data-hero-animate>
-				<Button href={primaryCta.href} variant="primary" size="lg" surface="dark">
+				<Button href={withBase(primaryCta.href)} variant="primary" size="lg" surface="dark">
 					{primaryCta.label}
 				</Button>
-				<Button href={secondaryCta.href} variant="secondary" size="lg" surface="dark">
+				<Button href={withBase(secondaryCta.href)} variant="secondary" size="lg" surface="dark">
 					{secondaryCta.label}
 				</Button>
 			</div>

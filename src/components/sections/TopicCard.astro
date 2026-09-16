@@ -3,6 +3,8 @@
  * TopicCard — compact speaking topic
  * Copper index + rail; cobalt CTA; fixed-size arrow icon.
  */
+import { withBase } from '../../lib/paths';
+
 interface Props {
 	title: string;
 	description: string;
@@ -10,10 +12,10 @@ interface Props {
 	index?: number;
 }
 
-const { title, description, href = '#speaking', index } = Astro.props;
+const { title, description, href = '/speaking', index } = Astro.props;
 ---
 
-<a class="topic-card" href={href}>
+<a class="topic-card" href={withBase(href)}>
 	{
 		typeof index === 'number' && (
 			<span class="topic-card__index" aria-hidden="true">

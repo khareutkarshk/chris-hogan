@@ -1,16 +1,24 @@
 ---
 import '../styles/global.css';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/paths';
 
 interface Props {
 	title?: string;
 	description?: string;
+	header?: 'none' | 'light' | 'dark';
+	preloadImage?: string;
 }
 
 const {
 	title = 'Chris Hogan | Author • Speaker • Entrepreneur',
 	description = 'Nationally recognized author, speaker, and leadership coach helping people think bigger, lead stronger, and live with purpose.',
+	header = 'none',
+	preloadImage,
 } = Astro.props;
+
+const preloadHref = preloadImage ? withBase(preloadImage) : undefined;
 ---
 
 <!doctype html>
@@ -19,8 +27,9 @@ const {
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+		<link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+		<link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
 		<meta name="generator" content={Astro.generator} />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,13 +53,11 @@ const {
 		</noscript>
 
 		<title>{title}</title>
-		<link
-			rel="preload"
-			as="image"
-			href="/images/hero-chris-keynote.webp"
-			type="image/webp"
-			fetchpriority="high"
-		/>
+		{
+			preloadHref && (
+				<link rel="preload" as="image" href={preloadHref} type="image/webp" fetchpriority="high" />
+			)
+		}
 	</head>
 	<body class="bg-canvas font-body text-primary antialiased">
 		<a
@@ -59,9 +66,51 @@ const {
 		>
 			Skip to content
 		</a>
+		{
+			header !== 'none' && (
+				<div class:list={['site-chrome', header === 'dark' && 'site-chrome--dark']}>
+					<div class="site-chrome__inner">
+						<Header surface={header} />
+					</div>
+				</div>
+			)
+		}
 		<main id="main">
 			<slot />
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.site-chrome {
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		padding-inline: 1.25rem;
+		background: color-mix(in srgb, #fbfbfd 92%, transparent);
+		backdrop-filter: blur(12px);
+		border-bottom: 1px solid var(--border-light);
+	}
+
+	.site-chrome--dark {
+		background: color-mix(in srgb, #080808 92%, transparent);
+		border-bottom-color: var(--border-dark);
+	}
+
+	.site-chrome__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.site-chrome {
+			backdrop-filter: none;
+			background: #fbfbfd;
+		}
+
+		.site-chrome--dark {
+			background: #080808;
+		}
+	}
+</style>

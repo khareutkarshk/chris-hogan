@@ -4,6 +4,7 @@
  */
 import SectionHeader from '../ui/SectionHeader.astro';
 import Button from '../ui/Button.astro';
+import { withBase } from '../../lib/paths';
 
 interface Props {
 	id?: string;
@@ -41,7 +42,7 @@ const unders = ['Underappreciated', 'Undervalued', 'Underpaid', 'Underconnected'
 		</div>
 
 		<div class="framework__actions">
-			<Button href="#speaking" variant="secondary" size="md" surface="dark">
+			<Button href={withBase('/speaking#framework')} variant="secondary" size="md" surface="dark">
 				See how it shows up on stage
 			</Button>
 		</div>

@@ -1,7 +1,9 @@
 ---
 /**
- * Site header — dark (over hero) or light (inner pages / sticky chrome)
+ * Site header — dark (over hero) or light (inner pages)
  */
+import { withBase } from '../lib/paths';
+
 interface Props {
 	surface?: 'dark' | 'light';
 	brand?: string;
@@ -9,14 +11,25 @@ interface Props {
 
 const { surface = 'dark', brand = 'Chris Hogan' } = Astro.props;
 
+const baseRoot = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+let path = Astro.url.pathname.replace(/\/$/, '') || '/';
+if (baseRoot && path.startsWith(baseRoot)) {
+	path = path.slice(baseRoot.length) || '/';
+}
+
 const navLinks = [
-	{ href: '#about', label: 'About' },
-	{ href: '#speaking', label: 'Speaking' },
-	{ href: '#books', label: 'Books' },
-	{ href: '#contact', label: 'Contact' },
+	{ href: '/about', label: 'About' },
+	{ href: '/speaking', label: 'Speaking' },
+	{ href: '/books', label: 'Books' },
+	{ href: '/#contact', label: 'Contact' },
 ];
 
 const isDark = surface === 'dark';
+
+function isCurrent(href: string) {
+	if (href.startsWith('#') || href.includes('#')) return false;
+	return path === href;
+}
 ---
 
 <header
@@ -24,10 +37,16 @@ const isDark = surface === 'dark';
 	x-data="{ open: false }"
 	@keydown.escape.window="open = false"
 >
-	<a class="site-header__wordmark" href="/">{brand}</a>
+	<a class="site-header__wordmark" href={withBase('/')}>{brand}</a>
 
 	<nav class="site-header__links hidden md:flex" aria-label="Primary">
-		{navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+		{
+			navLinks.map((link) => (
+				<a href={withBase(link.href)} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+					{link.label}
+				</a>
+			))
+		}
 	</nav>
 
 	<button
@@ -93,7 +112,8 @@ const isDark = surface === 'dark';
 				navLinks.map((link) => (
 					<li>
 						<a
-							href={link.href}
+							href={withBase(link.href)}
+							aria-current={isCurrent(link.href) ? 'page' : undefined}
 							class:list={[
 								'font-heading block rounded-md px-3 py-3 text-[0.9375rem] font-medium tracking-[-0.01em] transition-colors duration-200',
 								isDark
@@ -165,7 +185,8 @@ const isDark = surface === 'dark';
 		color: color-mix(in srgb, #fff 70%, transparent);
 	}
 
-	.site-header--dark .site-header__links a:hover {
+	.site-header--dark .site-header__links a:hover,
+	.site-header--dark .site-header__links a[aria-current='page'] {
 		color: #fff;
 	}
 
@@ -173,13 +194,20 @@ const isDark = surface === 'dark';
 		color: var(--color-text-secondary);
 	}
 
-	.site-header--light .site-header__links a:hover {
+	.site-header--light .site-header__links a:hover,
+	.site-header--light .site-header__links a[aria-current='page'] {
 		color: var(--color-text-primary);
 	}
 
 	@media (min-width: 768px) {
 		.site-header__wordmark {
 			font-size: 1.125rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.site-header__mobile {
+			transition: none !important;
 		}
 	}
 </style>
