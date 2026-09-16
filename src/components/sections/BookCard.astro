@@ -1,0 +1,123 @@
+---
+/**
+ * BookCard — cover + one-line hook
+ */
+interface Props {
+	title: string;
+	hook: string;
+	year: string;
+	coverJpg: string;
+	coverWebp: string;
+	coverWidth?: number;
+	coverHeight?: number;
+	href?: string;
+}
+
+const {
+	title,
+	hook,
+	year,
+	coverJpg,
+	coverWebp,
+	coverWidth = 310,
+	coverHeight = 500,
+	href = '#books',
+} = Astro.props;
+---
+
+<a class="book-card" href={href}>
+	<div class="book-card__cover">
+		<picture>
+			<source srcset={coverWebp} type="image/webp" />
+			<img
+				src={coverJpg}
+				alt={`Cover of ${title}`}
+				width={coverWidth}
+				height={coverHeight}
+				loading="lazy"
+				decoding="async"
+			/>
+		</picture>
+	</div>
+	<div class="book-card__body">
+		<p class="book-card__year text-meta">{year}</p>
+		<h3 class="book-card__title">{title}</h3>
+		<p class="book-card__hook">{hook}</p>
+	</div>
+</a>
+
+<style>
+	.book-card {
+		display: grid;
+		gap: 1.25rem;
+		align-items: start;
+		text-decoration: none;
+		color: inherit;
+		transition: opacity var(--duration-fast) var(--ease-standard);
+	}
+
+	.book-card:hover {
+		opacity: 0.9;
+	}
+
+	.book-card:focus-visible {
+		outline: none;
+		box-shadow: var(--focus-ring);
+		border-radius: 4px;
+	}
+
+	.book-card__cover {
+		width: min(100%, 14rem);
+		aspect-ratio: 3 / 4.5;
+		background: color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+		overflow: hidden;
+		box-shadow: var(--shadow-md);
+		justify-self: center;
+		margin-inline: auto;
+	}
+
+	.book-card__cover img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		background: #fff;
+	}
+
+	.book-card__year {
+		margin: 0;
+		color: var(--color-text-secondary);
+	}
+
+	.book-card__title {
+		margin: 0.5rem 0 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: clamp(1.25rem, 2vw, 1.5rem);
+		letter-spacing: -0.025em;
+		line-height: 1.2;
+		color: var(--color-text-primary);
+	}
+
+	.book-card__hook {
+		margin: 0.65rem 0 0;
+		font-size: 1rem;
+		line-height: 1.55;
+		color: var(--color-text-secondary);
+		max-width: 34ch;
+	}
+
+	@media (min-width: 640px) {
+		.book-card {
+			grid-template-columns: 11rem 1fr;
+			gap: 1.5rem;
+			align-items: center;
+		}
+
+		.book-card__cover {
+			width: 100%;
+			justify-self: start;
+			margin-inline: 0;
+		}
+	}
+</style>

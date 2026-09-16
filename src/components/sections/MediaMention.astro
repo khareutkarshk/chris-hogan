@@ -1,0 +1,185 @@
+---
+/**
+ * MediaMention — compact featured-in logo strip
+ * Equal visual weight, no captions, no oversized artwork.
+ */
+interface Outlet {
+	name: string;
+	src: string;
+	width: number;
+	height: number;
+	srcWebp?: string;
+}
+
+interface Props {
+	items?: Outlet[];
+}
+
+const {
+	items = [
+		{
+			name: 'CNBC Make It',
+			src: '/images/media/cnbc-make-it.svg',
+			width: 242,
+			height: 37,
+		},
+		{
+			name: 'Fox Business',
+			src: '/images/media/fox-business.svg',
+			width: 200,
+			height: 48,
+		},
+		{
+			name: 'SiriusXM',
+			src: '/images/media/siriusxm.svg',
+			width: 200,
+			height: 32,
+		},
+		{
+			name: 'SUCCESS',
+			src: '/images/media/success.png',
+			srcWebp: '/images/media/success.webp',
+			width: 200,
+			height: 36,
+		},
+		{
+			name: 'PragerU',
+			src: '/images/media/prageru.svg',
+			width: 135,
+			height: 40,
+		},
+	],
+} = Astro.props;
+---
+
+<ul class="media-strip" aria-label="As featured in">
+	{
+		items.map((item) => (
+			<li class="media-strip__item">
+				{item.srcWebp ? (
+					<picture>
+						<source srcset={item.srcWebp} type="image/webp" />
+						<img
+							class="media-strip__logo"
+							src={item.src}
+							alt={item.name}
+							width={item.width}
+							height={item.height}
+							loading="lazy"
+							decoding="async"
+						/>
+					</picture>
+				) : (
+					<img
+						class="media-strip__logo"
+						src={item.src}
+						alt={item.name}
+						width={item.width}
+						height={item.height}
+						loading="lazy"
+						decoding="async"
+					/>
+				)}
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.media-strip {
+		list-style: none;
+		margin: 0;
+		padding: 0.35rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: stretch;
+		justify-content: center;
+		gap: 0.35rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.75rem;
+		background: #fff;
+		box-shadow: var(--shadow-sm);
+	}
+
+	.media-strip__item {
+		flex: 1 1 8.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 4rem;
+		padding: 0.85rem 1.1rem;
+		border-radius: 0.5rem;
+		transition: background-color var(--duration-fast) var(--ease-standard);
+	}
+
+	.media-strip__logo {
+		display: block !important;
+		width: auto !important;
+		height: 1.65rem !important;
+		max-width: 8.75rem !important;
+		max-height: 1.65rem !important;
+		object-fit: contain;
+		object-position: center;
+		/* Full color on touch / mobile — hover is meaningless there */
+		filter: none;
+		opacity: 1;
+		transition:
+			filter var(--duration-base) var(--ease-standard),
+			opacity var(--duration-base) var(--ease-standard);
+	}
+
+	.media-strip__item:hover {
+		background: transparent;
+	}
+
+	/* Desktop / fine pointer: muted until hover */
+	@media (hover: hover) and (pointer: fine) {
+		.media-strip__item:hover {
+			background: color-mix(in srgb, #c65d21 6%, #fff);
+		}
+
+		.media-strip__logo {
+			filter: grayscale(1) brightness(0.32);
+			opacity: 0.8;
+		}
+
+		.media-strip__item:hover .media-strip__logo,
+		.media-strip__item:focus-within .media-strip__logo {
+			filter: none;
+			opacity: 1;
+		}
+	}
+
+	@media (min-width: 900px) {
+		.media-strip {
+			flex-wrap: nowrap;
+			padding: 0.4rem;
+			gap: 0;
+		}
+
+		.media-strip__item {
+			flex: 1 1 0;
+			min-height: 4.75rem;
+			padding: 1.1rem 0.85rem;
+			border-radius: 0;
+			border-right: 1px solid var(--border-light);
+		}
+
+		.media-strip__item:last-child {
+			border-right: none;
+		}
+
+		.media-strip__logo {
+			height: 1.75rem !important;
+			max-height: 1.75rem !important;
+			max-width: 8.25rem !important;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.media-strip__logo,
+		.media-strip__item {
+			transition: none;
+		}
+	}
+</style>

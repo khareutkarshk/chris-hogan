@@ -1,0 +1,59 @@
+---
+/**
+ * SectionHeader — mono eyebrow label over DM Sans title
+ */
+interface Props {
+	label?: string;
+	title: string;
+	description?: string;
+	align?: 'left' | 'center';
+	tone?: 'light' | 'dark';
+	/** Accent the mono label (copper) */
+	labelAccent?: 'default' | 'copper';
+	as?: 'h1' | 'h2' | 'h3';
+	id?: string;
+	class?: string;
+}
+
+const {
+	label,
+	title,
+	description,
+	align = 'left',
+	tone = 'light',
+	labelAccent = 'default',
+	as: HeadingTag = 'h2',
+	id,
+	class: className = '',
+} = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center items-center' : 'text-left items-start';
+const titleColor = tone === 'dark' ? 'text-inverted' : 'text-primary';
+const descColor = tone === 'dark' ? 'text-[color-mix(in_srgb,#fff_70%,transparent)]' : 'text-titanium';
+const labelColor =
+	labelAccent === 'copper'
+		? 'text-copper'
+		: tone === 'dark'
+			? 'text-[color-mix(in_srgb,#fff_55%,transparent)]'
+			: 'text-titanium';
+---
+
+<header class={`flex flex-col gap-2 md:gap-2.5 ${alignClass} ${className}`}>
+	{
+		label && (
+			<p class={`text-meta m-0 ${labelColor}`}>
+				{label}
+			</p>
+		)
+	}
+	<HeadingTag class={`text-section m-0 ${titleColor}`} id={id}>
+		{title}
+	</HeadingTag>
+	{
+		description && (
+			<p class={`m-0 max-w-2xl text-[0.9375rem] leading-relaxed md:text-base ${descColor}`}>
+				{description}
+			</p>
+		)
+	}
+</header>

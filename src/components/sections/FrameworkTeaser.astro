@@ -1,0 +1,106 @@
+---
+/**
+ * FrameworkTeaser — OVER / UNDER public-safe subset (intimacy pillar omitted)
+ */
+import SectionHeader from '../ui/SectionHeader.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+	id?: string;
+}
+
+const { id = 'framework' } = Astro.props;
+
+const overs = ['Overthinking', 'Overstressed', 'Overworked', 'Overwhelmed'];
+const unders = ['Underappreciated', 'Undervalued', 'Underpaid', 'Underconnected'];
+---
+
+<section class="framework theme-obsidian" id={id} aria-labelledby="framework-title">
+	<div class="framework__inner">
+		<SectionHeader
+			id="framework-title"
+			label="Signature framework"
+			title="The OVER / UNDER Framework™"
+			description="Most people do not have a capability problem. They have an overload problem. Manage the OVERs. Strategically improve the UNDERs."
+			tone="dark"
+		/>
+
+		<div class="framework__columns">
+			<div class="framework__col">
+				<p class="framework__col-label text-meta">The OVER Method™</p>
+				<ul class="framework__list">
+					{overs.map((item) => <li>{item}</li>)}
+				</ul>
+			</div>
+			<div class="framework__col">
+				<p class="framework__col-label text-meta">The UNDER Method™</p>
+				<ul class="framework__list">
+					{unders.map((item) => <li>{item}</li>)}
+				</ul>
+			</div>
+		</div>
+
+		<div class="framework__actions">
+			<Button href="#speaking" variant="secondary" size="md" surface="dark">
+				See how it shows up on stage
+			</Button>
+		</div>
+	</div>
+</section>
+
+<style>
+	.framework {
+		padding: clamp(3.5rem, 10vw, 6.5rem) 1.25rem;
+		border-top: 1px solid var(--border-dark);
+	}
+
+	.framework__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	.framework__columns {
+		display: grid;
+		gap: 2.5rem;
+		margin-top: 2.75rem;
+	}
+
+	.framework__col-label {
+		margin: 0 0 1rem;
+		color: color-mix(in srgb, #fff 50%, transparent);
+	}
+
+	.framework__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0;
+	}
+
+	.framework__list li {
+		font-family: var(--font-heading);
+		font-weight: 500;
+		font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+		letter-spacing: -0.025em;
+		line-height: 1.25;
+		color: #fff;
+		padding: 0.85rem 0;
+		border-top: 1px solid var(--border-dark);
+	}
+
+	.framework__list li:last-child {
+		border-bottom: 1px solid var(--border-dark);
+	}
+
+	.framework__actions {
+		margin-top: 2.25rem;
+	}
+
+	@media (min-width: 768px) {
+		.framework__columns {
+			grid-template-columns: 1fr 1fr;
+			gap: 3.5rem;
+		}
+	}
+</style>

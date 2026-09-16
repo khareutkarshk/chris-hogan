@@ -1,0 +1,51 @@
+---
+/**
+ * Card — minimal 1px outline, high whitespace, restrained hover lift.
+ * Prefer for interactive/content containers, not decorative chrome.
+ */
+type Surface = 'canvas' | 'obsidian';
+
+interface Props {
+	surface?: Surface;
+	href?: string;
+	class?: string;
+	interactive?: boolean;
+}
+
+const {
+	surface = 'canvas',
+	href,
+	class: className = '',
+	interactive = Boolean(href),
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+
+const surfaceClasses: Record<Surface, string> = {
+	canvas: 'bg-canvas text-primary border-[var(--border-light)]',
+	obsidian: 'bg-obsidian text-inverted border-[var(--border-dark)]',
+};
+
+const classes = [
+	'block rounded-lg border p-6 md:p-8',
+	'transition-[transform,box-shadow,border-color] duration-200 ease-[var(--ease-standard)]',
+	surfaceClasses[surface],
+	interactive
+		? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]'
+		: '',
+	className,
+].join(' ');
+---
+
+<Tag class={classes} {...(href ? { href } : {})}>
+	<slot />
+</Tag>
+
+<style>
+	@media (prefers-reduced-motion: reduce) {
+		:global(a.block:hover),
+		:global(div.block:hover) {
+			transform: none;
+		}
+	}
+</style>

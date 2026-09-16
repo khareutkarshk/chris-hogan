@@ -1,11 +1,234 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProofStrip from '../components/sections/ProofStrip.astro';
+import PositioningIntro from '../components/sections/PositioningIntro.astro';
+import TopicCard from '../components/sections/TopicCard.astro';
+import BookCard from '../components/sections/BookCard.astro';
+import FrameworkTeaser from '../components/sections/FrameworkTeaser.astro';
+import ScaleBand from '../components/sections/ScaleBand.astro';
+import MediaMention from '../components/sections/MediaMention.astro';
+import Testimonial from '../components/sections/Testimonial.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Button from '../components/ui/Button.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const topics = [
+	{
+		title: 'Leadership That Matters',
+		description: 'Developing leaders who inspire trust, accountability, performance, and growth.',
+	},
+	{
+		title: 'The Power of Purpose',
+		description: 'Helping people discover why they do what they do — and how purpose fuels performance.',
+	},
+	{
+		title: 'Winning the Performance Game',
+		description: 'High-performance strategies for individuals, teams, and organizations.',
+	},
+	{
+		title: 'Resilience in a Changing World',
+		description: 'How leaders and teams thrive during uncertainty and change.',
+	},
+	{
+		title: 'Everyday Leadership',
+		description: 'Leadership lessons anyone can use — regardless of title or position.',
+	},
+];
 ---
 
 <Layout>
-	<Welcome />
+	<Hero />
+
+	<ProofStrip />
+
+	<PositioningIntro />
+
+	<section class="home-section home-section--topics" id="speaking" aria-labelledby="topics-heading">
+		<div class="home-section__inner">
+			<SectionHeader
+				id="topics-heading"
+				label="Speaking"
+				labelAccent="copper"
+				title="Signature topics that move rooms."
+				description="Keynotes and workshops built for executives, teams, and associations ready to lead with clarity."
+			/>
+
+			<div class="topics-grid">
+				{
+					topics.map((topic, i) => (
+						<TopicCard
+							title={topic.title}
+							description={topic.description}
+							href="#contact"
+							index={i + 1}
+						/>
+					))
+				}
+			</div>
+
+			<div class="home-section__action">
+				<Button href="#contact" variant="copper" size="md">Book a topic</Button>
+				<Button href="#contact" variant="secondary" size="md">Request a custom keynote</Button>
+			</div>
+		</div>
+	</section>
+
+	<section class="home-section home-section--quiet" id="books" aria-labelledby="books-heading">
+		<div class="home-section__inner">
+			<SectionHeader
+				id="books-heading"
+				label="Books"
+				title="Two national bestsellers. One practical standard."
+				description="Frameworks for retirement as a financial number — and the everyday habits behind real wealth."
+			/>
+
+			<div class="books-grid">
+				<BookCard
+					title="Retire Inspired"
+					hook="Retirement isn’t an age — it’s a financial number. The book that introduced R:IQ."
+					year="2016 · Ramsey Press"
+					coverJpg="/images/books/retire-inspired.jpg"
+					coverWebp="/images/books/retire-inspired.webp"
+					coverWidth={620}
+					coverHeight={1000}
+					href="#contact"
+				/>
+				<BookCard
+					title="Everyday Millionaires"
+					hook="How ordinary people built extraordinary wealth — drawn from research with 10,000+ U.S. millionaires."
+					year="2019 · Ramsey Press"
+					coverJpg="/images/books/everyday-millionaires.jpg"
+					coverWebp="/images/books/everyday-millionaires.webp"
+					coverWidth={267}
+					coverHeight={400}
+					href="#contact"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<FrameworkTeaser />
+
+	<ScaleBand />
+
+	<section class="home-section home-section--media" id="media" aria-labelledby="media-heading">
+		<div class="home-section__inner">
+			<SectionHeader
+				id="media-heading"
+				label="Media"
+				labelAccent="copper"
+				title="As featured in"
+				description="National platforms where Chris has shared research, retirement strategy, and leadership insight."
+			/>
+			<div class="media-wrap">
+				<MediaMention />
+			</div>
+		</div>
+	</section>
+
+	<Testimonial />
+
+	<CTASection />
 </Layout>
+
+<style>
+	.home-section {
+		background: var(--color-base-canvas);
+		border-top: 1px solid var(--border-light);
+		padding: clamp(3.5rem, 10vw, 6.5rem) 1.25rem;
+	}
+
+	.home-section--quiet {
+		padding-block: clamp(3rem, 8vw, 5.5rem);
+	}
+
+	.home-section__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	.home-section__inner--narrow {
+		width: min(100%, 56rem);
+	}
+
+	.home-section--topics {
+		background:
+			radial-gradient(
+				120% 80% at 100% 0%,
+				color-mix(in srgb, #c65d21 8%, transparent) 0%,
+				transparent 45%
+			),
+			radial-gradient(
+				90% 70% at 0% 100%,
+				color-mix(in srgb, #0071e3 5%, transparent) 0%,
+				transparent 50%
+			),
+			var(--color-base-canvas);
+		padding-block: clamp(2.5rem, 6vw, 3.75rem);
+	}
+
+	.topics-grid {
+		display: grid;
+		gap: 0.85rem;
+		margin-top: 1.75rem;
+	}
+
+	.books-grid {
+		display: grid;
+		gap: 2.5rem;
+		margin-top: 2.75rem;
+	}
+
+	.media-wrap {
+		margin-top: 1.75rem;
+	}
+
+	.home-section--media {
+		padding-block: clamp(2.5rem, 6vw, 3.75rem);
+		background:
+			radial-gradient(
+				90% 80% at 0% 0%,
+				color-mix(in srgb, #c65d21 5%, transparent) 0%,
+				transparent 50%
+			),
+			var(--color-base-canvas);
+	}
+
+	.home-section__action {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+
+	@media (min-width: 768px) {
+		.topics-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.9rem;
+		}
+
+		.books-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 3rem;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.home-section--topics {
+			/* Keep speaking block closer to one desktop viewport */
+			min-height: auto;
+			padding-block: 2.75rem;
+		}
+
+		.topics-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.85rem;
+			margin-top: 1.5rem;
+		}
+
+		.home-section__action {
+			margin-top: 1.25rem;
+		}
+	}
+</style>

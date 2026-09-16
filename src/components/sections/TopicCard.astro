@@ -1,0 +1,160 @@
+---
+/**
+ * TopicCard — compact speaking topic
+ * Copper index + rail; cobalt CTA; fixed-size arrow icon.
+ */
+interface Props {
+	title: string;
+	description: string;
+	href?: string;
+	index?: number;
+}
+
+const { title, description, href = '#speaking', index } = Astro.props;
+---
+
+<a class="topic-card" href={href}>
+	{
+		typeof index === 'number' && (
+			<span class="topic-card__index" aria-hidden="true">
+				{String(index).padStart(2, '0')}
+			</span>
+		)
+	}
+	<h3 class="topic-card__title">{title}</h3>
+	<p class="topic-card__desc">{description}</p>
+	<span class="topic-card__link">
+		Explore topic
+		<svg
+			class="topic-card__arrow"
+			width="14"
+			height="14"
+			viewBox="0 0 16 16"
+			fill="none"
+			aria-hidden="true"
+		>
+			<path
+				d="M3 8h10M9 4l4 4-4 4"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			></path>
+		</svg>
+	</span>
+</a>
+
+<style>
+	.topic-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.55rem;
+		height: 100%;
+		padding: 1.15rem 1.15rem 1.15rem 1.25rem;
+		border: 1px solid var(--border-light);
+		border-radius: 0.625rem;
+		background: #ffffff;
+		text-decoration: none;
+		color: #1d1d1f;
+		overflow: hidden;
+		transition:
+			border-color var(--duration-base) var(--ease-standard),
+			box-shadow var(--duration-base) var(--ease-standard);
+	}
+
+	/* Copper accent rail — always visible */
+	.topic-card::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 3px;
+		background: #c65d21;
+	}
+
+	.topic-card:hover {
+		border-color: color-mix(in srgb, #c65d21 40%, var(--border-light));
+		box-shadow: var(--shadow-sm);
+	}
+
+	.topic-card:focus-visible {
+		outline: none;
+		box-shadow: var(--focus-ring);
+	}
+
+	.topic-card__index {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		line-height: 1;
+		color: #c65d21;
+	}
+
+	.topic-card__title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+		letter-spacing: -0.025em;
+		line-height: 1.25;
+		color: #1d1d1f;
+		text-wrap: balance;
+	}
+
+	.topic-card__desc {
+		margin: 0;
+		flex: 1;
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		line-height: 1.45;
+		color: #5c5c61;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.topic-card__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin-top: 0.25rem;
+		font-family: var(--font-body);
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		white-space: nowrap;
+		color: #0071e3;
+	}
+
+	.topic-card__arrow {
+		display: inline-block !important;
+		width: 14px !important;
+		height: 14px !important;
+		max-width: 14px !important;
+		flex-shrink: 0;
+	}
+
+	@media (min-width: 1100px) {
+		.topic-card {
+			padding: 1rem 1.1rem 1rem 1.2rem;
+			gap: 0.45rem;
+		}
+
+		.topic-card__desc {
+			-webkit-line-clamp: 2;
+			font-size: 0.8125rem;
+			line-height: 1.4;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.topic-card {
+			transition: none;
+		}
+	}
+</style>

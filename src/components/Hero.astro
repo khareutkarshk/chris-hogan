@@ -1,0 +1,308 @@
+---
+/**
+ * Hero — Mainstage Authority
+ * Full-bleed keynote photography. Brand-first. Cobalt + Copper accents.
+ */
+import Header from './Header.astro';
+import Button from './ui/Button.astro';
+
+interface Props {
+	brand?: string;
+	role?: string;
+	headline?: string;
+	support?: string;
+	primaryCta?: { label: string; href: string };
+	secondaryCta?: { label: string; href: string };
+	imageSrc?: string;
+	imageWebpSrc?: string;
+	imageAlt?: string;
+}
+
+const {
+	brand = 'Chris Hogan',
+	role = 'Author · Speaker · Coach',
+	headline = 'Where purpose becomes performance.',
+	support = 'Helping leaders and organizations move from intention to execution — with clarity, accountability, and lasting results.',
+	primaryCta = { label: 'Book Chris', href: '#contact' },
+	secondaryCta = { label: 'Explore the work', href: '#work' },
+	imageSrc = '/images/hero-chris-keynote.jpg',
+	imageWebpSrc = '/images/hero-chris-keynote.webp',
+	imageAlt = 'Chris Hogan delivering a keynote on stage',
+} = Astro.props;
+---
+
+<section class="hero" aria-label="Introduction">
+	<div class="hero__media" aria-hidden="true">
+		<picture>
+			<source srcset={imageWebpSrc} type="image/webp" />
+			<img
+				class="hero__image"
+				src={imageSrc}
+				alt=""
+				width="2135"
+				height="3200"
+				decoding="async"
+				fetchpriority="high"
+			/>
+		</picture>
+		<div class="hero__scrim"></div>
+		<div class="hero__grain"></div>
+	</div>
+
+	<span class="sr-only">{imageAlt}</span>
+
+	<div class="hero__frame">
+		<Header surface="dark" brand={brand} />
+
+		<div class="hero__content">
+			<p class="hero__brand" data-hero-animate>{brand}</p>
+			<p class="hero__role" data-hero-animate>
+				<span class="hero__role-accent" aria-hidden="true"></span>
+				{role}
+			</p>
+			<h1 class="hero__headline" data-hero-animate>{headline}</h1>
+			<p class="hero__support" data-hero-animate>{support}</p>
+			<div class="hero__actions" data-hero-animate>
+				<Button href={primaryCta.href} variant="primary" size="lg" surface="dark">
+					{primaryCta.label}
+				</Button>
+				<Button href={secondaryCta.href} variant="secondary" size="lg" surface="dark">
+					{secondaryCta.label}
+				</Button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		isolation: isolate;
+		min-height: 100svh;
+		min-height: 100dvh;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		background: var(--color-base-obsidian);
+		color: var(--color-text-inverted);
+	}
+
+	.hero__media {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.hero__media picture,
+	.hero__image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero__image {
+		object-fit: cover;
+		object-position: 68% 40%;
+		filter: contrast(1.04) brightness(0.88) saturate(0.95);
+		transform: scale(1.02);
+		transform-origin: 68% 38%;
+		animation: hero-kenburns 24s var(--ease-standard) forwards;
+	}
+
+	.hero__scrim {
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(
+				105deg,
+				rgba(8, 8, 8, 0.94) 0%,
+				rgba(8, 8, 8, 0.78) 30%,
+				rgba(8, 8, 8, 0.28) 54%,
+				rgba(8, 8, 8, 0.1) 74%,
+				rgba(8, 8, 8, 0.28) 100%
+			),
+			linear-gradient(
+				to top,
+				rgba(8, 8, 8, 0.5) 0%,
+				rgba(8, 8, 8, 0.16) 22%,
+				transparent 48%
+			);
+	}
+
+	.hero__grain {
+		position: absolute;
+		inset: 0;
+		opacity: 0.028;
+		pointer-events: none;
+		mix-blend-mode: overlay;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	}
+
+	.hero__frame {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		width: min(100% - 2.5rem, 72rem);
+		margin-inline: auto;
+		padding-block: 1.25rem 3.5rem;
+	}
+
+	.hero__content {
+		margin-top: auto;
+		padding-top: 5.5rem;
+		max-width: 34rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.hero__brand {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: clamp(2.875rem, 7.5vw, 5rem);
+		letter-spacing: -0.035em;
+		line-height: 0.94;
+		color: #fff;
+		text-wrap: balance;
+		animation-delay: 0.05s;
+	}
+
+	.hero__role {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		margin: 1.15rem 0 0;
+		font-family: var(--font-mono);
+		font-weight: 500;
+		font-size: 0.6875rem;
+		line-height: 1.4;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: color-mix(in srgb, #fff 62%, transparent);
+		animation-delay: 0.14s;
+	}
+
+	.hero__role-accent {
+		display: inline-block;
+		width: 1.5rem;
+		height: 2px;
+		flex-shrink: 0;
+		background: var(--color-accent-copper);
+		border-radius: 1px;
+	}
+
+	.hero__headline {
+		margin: 1.5rem 0 0;
+		font-family: var(--font-heading);
+		font-weight: 500;
+		font-size: clamp(1.3125rem, 2.2vw, 1.75rem);
+		letter-spacing: -0.025em;
+		line-height: 1.28;
+		color: color-mix(in srgb, #fff 94%, transparent);
+		max-width: 18ch;
+		text-wrap: balance;
+		animation-delay: 0.22s;
+	}
+
+	.hero__support {
+		margin: 1rem 0 0;
+		max-width: 36ch;
+		font-family: var(--font-body);
+		font-weight: 400;
+		font-size: 1.0625rem;
+		line-height: 1.65;
+		color: color-mix(in srgb, #fff 64%, transparent);
+		animation-delay: 0.3s;
+	}
+
+	.hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.85rem;
+		animation-delay: 0.38s;
+	}
+
+	[data-hero-animate] {
+		opacity: 0;
+		transform: translateY(14px);
+		animation: hero-rise 0.7s var(--ease-standard) forwards;
+	}
+
+	@keyframes hero-rise {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes hero-kenburns {
+		to {
+			transform: scale(1);
+		}
+	}
+
+	@media (min-width: 768px) {
+		.hero__frame {
+			padding-block: 1.5rem 4.5rem;
+			width: min(100% - 4rem, 72rem);
+		}
+
+		.hero__content {
+			max-width: 38rem;
+			padding-top: 7.5rem;
+		}
+
+		.hero__image {
+			object-position: 70% 26%;
+		}
+
+		.hero__support {
+			font-size: 1.125rem;
+			max-width: 38ch;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.hero__content {
+			max-width: 40rem;
+		}
+
+		.hero__image {
+			object-position: 72% 26%;
+		}
+
+		.hero__scrim {
+			background:
+				linear-gradient(
+					100deg,
+					rgba(8, 8, 8, 0.92) 0%,
+					rgba(8, 8, 8, 0.7) 28%,
+					rgba(8, 8, 8, 0.2) 52%,
+					rgba(8, 8, 8, 0.06) 72%,
+					rgba(8, 8, 8, 0.22) 100%
+				),
+				linear-gradient(
+					to top,
+					rgba(8, 8, 8, 0.42) 0%,
+					rgba(8, 8, 8, 0.12) 26%,
+					transparent 52%
+				);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero__image {
+			animation: none;
+			transform: scale(1);
+		}
+
+		[data-hero-animate] {
+			opacity: 1;
+			transform: none;
+			animation: none;
+		}
+	}
+</style>

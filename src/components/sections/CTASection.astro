@@ -1,0 +1,83 @@
+---
+/**
+ * CTASection — final booking climax on obsidian
+ */
+import Button from '../ui/Button.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+
+interface Props {
+	id?: string;
+	label?: string;
+	title?: string;
+	description?: string;
+	primaryCta?: { label: string; href: string; external?: boolean };
+	email?: string;
+	phone?: string;
+}
+
+const {
+	id = 'contact',
+	label = 'Book Chris',
+	title = 'Bring clarity and execution to your next stage.',
+	description = 'Keynotes, leadership workshops, and executive consulting for organizations ready to move from intention to results.',
+	primaryCta = {
+		label: 'Request availability',
+		href: 'https://coachhogan.com/contact/',
+		external: true,
+	},
+} = Astro.props;
+---
+
+<section class="cta-section theme-obsidian" id={id} aria-labelledby="cta-heading">
+	<div class="cta-section__inner">
+		<SectionHeader
+			id="cta-heading"
+			label={label}
+			title={title}
+			description={description}
+			tone="dark"
+			align="left"
+			class="cta-section__header"
+		/>
+
+		<div class="cta-section__actions">
+			<Button
+				href={primaryCta.href}
+				variant="primary"
+				size="lg"
+				surface="dark"
+				external={primaryCta.external}
+			>
+				{primaryCta.label}
+			</Button>
+		</div>
+
+		<p class="cta-section__meta text-meta">
+			Hogan Consulting Group · Nashville, Tennessee
+		</p>
+	</div>
+</section>
+
+<style>
+	.cta-section {
+		padding: clamp(3.5rem, 10vw, 6.5rem) 1.25rem;
+		border-top: 1px solid var(--border-dark);
+	}
+
+	.cta-section__inner {
+		width: min(100%, 42rem);
+		margin-inline: auto;
+	}
+
+	.cta-section__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.cta-section__meta {
+		margin: 2rem 0 0;
+		color: color-mix(in srgb, #fff 45%, transparent);
+	}
+</style>

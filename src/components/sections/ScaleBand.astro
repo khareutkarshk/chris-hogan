@@ -1,0 +1,155 @@
+---
+/**
+ * ScaleBand — short cinematic proof strip
+ * Text overlays the photo; no tall full-viewport crop.
+ */
+interface Props {
+	id?: string;
+	label?: string;
+	line?: string;
+	imageJpg?: string;
+	imageWebp?: string;
+}
+
+const {
+	id = 'scale',
+	label = 'On stages that matter',
+	line = 'From CEO rooms to conference halls — clarity that scales with the room.',
+	imageJpg = '/images/proof/audience-hall.jpg',
+	imageWebp = '/images/proof/audience-hall.webp',
+} = Astro.props;
+---
+
+<section class="scale-band" id={id} aria-label="Audience scale">
+	<div class="scale-band__media" aria-hidden="true">
+		<picture>
+			<source srcset={imageWebp} type="image/webp" />
+			<img
+				src={imageJpg}
+				alt=""
+				width="2400"
+				height="900"
+				loading="lazy"
+				decoding="async"
+			/>
+		</picture>
+		<div class="scale-band__scrim"></div>
+	</div>
+
+	<div class="scale-band__content">
+		<p class="scale-band__label">{label}</p>
+		<p class="scale-band__line">{line}</p>
+	</div>
+</section>
+
+<style>
+	.scale-band {
+		position: relative;
+		isolation: isolate;
+		/* Short strip — not a half-page photo */
+		height: clamp(11.5rem, 22vw, 16.5rem);
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		background: var(--color-base-obsidian);
+		color: var(--color-text-inverted);
+		border-block: 1px solid var(--border-dark);
+	}
+
+	.scale-band__media {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.scale-band__media picture,
+	.scale-band__media img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		/* Bias toward stage / screens, not empty ceiling */
+		object-position: center 55%;
+		filter: contrast(1.06) brightness(0.68) saturate(0.85);
+	}
+
+	.scale-band__scrim {
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(
+				105deg,
+				rgba(8, 8, 8, 0.92) 0%,
+				rgba(8, 8, 8, 0.72) 32%,
+				rgba(8, 8, 8, 0.35) 58%,
+				rgba(8, 8, 8, 0.45) 100%
+			),
+			linear-gradient(
+				to top,
+				rgba(8, 8, 8, 0.35) 0%,
+				transparent 55%
+			);
+	}
+
+	.scale-band__content {
+		position: relative;
+		z-index: 1;
+		width: min(100% - 2.5rem, 72rem);
+		margin-inline: auto;
+		padding-block: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.65rem;
+		border-left: 3px solid #c65d21;
+		padding-left: 1.15rem;
+	}
+
+	.scale-band__label {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-weight: 500;
+		font-size: 0.6875rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		line-height: 1;
+		color: #c65d21;
+	}
+
+	.scale-band__line {
+		margin: 0;
+		max-width: 32ch;
+		font-family: var(--font-heading);
+		font-weight: 500;
+		font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+		letter-spacing: -0.025em;
+		line-height: 1.28;
+		color: #fff;
+		text-wrap: balance;
+	}
+
+	@media (min-width: 768px) {
+		.scale-band {
+			height: clamp(12.5rem, 18vw, 15.5rem);
+		}
+
+		.scale-band__content {
+			width: min(100% - 4rem, 72rem);
+			padding-left: 1.35rem;
+		}
+
+		.scale-band__line {
+			max-width: 38ch;
+		}
+
+		.scale-band__media img {
+			object-position: center 48%;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.scale-band {
+			height: 14rem;
+		}
+	}
+</style>

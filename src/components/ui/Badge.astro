@@ -1,0 +1,34 @@
+---
+/**
+ * Badge — JetBrains Mono metadata / metrics / labels
+ */
+type Tone = 'neutral' | 'cobalt' | 'copper' | 'obsidian';
+
+interface Props {
+	tone?: Tone;
+	class?: string;
+}
+
+const { tone = 'neutral', class: className = '' } = Astro.props;
+
+const toneClasses: Record<Tone, string> = {
+	neutral:
+		'bg-[rgba(0,0,0,0.03)] text-titanium border-[var(--border-light)]',
+	cobalt:
+		'bg-[color-mix(in_srgb,var(--color-accent-blue)_10%,transparent)] text-cobalt border-[color-mix(in_srgb,var(--color-accent-blue)_22%,transparent)]',
+	copper:
+		'bg-[color-mix(in_srgb,var(--color-accent-copper)_12%,transparent)] text-copper border-[color-mix(in_srgb,var(--color-accent-copper)_28%,transparent)]',
+	obsidian:
+		'bg-[rgba(255,255,255,0.06)] text-inverted border-[var(--border-dark)]',
+};
+
+const classes = [
+	'text-meta inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1',
+	toneClasses[tone],
+	className,
+].join(' ');
+---
+
+<span class={classes}>
+	<slot />
+</span>

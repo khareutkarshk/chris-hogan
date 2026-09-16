@@ -1,0 +1,186 @@
+---
+/**
+ * Testimonial — published, attributable pull quotes
+ * Explicit colors for reliable contrast on canvas.
+ */
+interface Quote {
+	text: string;
+	attribution: string;
+	context: string;
+}
+
+interface Props {
+	id?: string;
+	quotes?: Quote[];
+}
+
+const {
+	id = 'voices',
+	quotes = [
+		{
+			text: 'Hogan mixes humor, client studies, and financial truth… and comes out with a winner.',
+			attribution: 'Mike Ramey',
+			context: 'FaithWriters review of Retire Inspired',
+		},
+		{
+			text: 'Captivating and inspiring — debunking popular myths about millionaires.',
+			attribution: 'Blinkist',
+			context: 'Editorial summary of Everyday Millionaires',
+		},
+	],
+} = Astro.props;
+---
+
+<section class="testimonial" id={id} aria-labelledby="testimonial-heading">
+	<div class="testimonial__inner">
+		<header class="testimonial__header">
+			<p class="testimonial__label" id="testimonial-heading">Published voices</p>
+			<p class="testimonial__lead">What reviewers and editors have said about the work.</p>
+		</header>
+
+		<div class="testimonial__grid">
+			{
+				quotes.map((quote) => (
+					<blockquote class="testimonial__quote">
+						<span class="testimonial__mark" aria-hidden="true">
+							“
+						</span>
+						<p class="testimonial__text">{quote.text}</p>
+						<footer class="testimonial__footer">
+							<cite class="testimonial__cite">{quote.attribution}</cite>
+							<span class="testimonial__context">{quote.context}</span>
+						</footer>
+					</blockquote>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.testimonial {
+		background:
+			radial-gradient(
+				90% 70% at 100% 0%,
+				color-mix(in srgb, #c65d21 6%, transparent) 0%,
+				transparent 50%
+			),
+			#fbfbfd;
+		border-top: 1px solid rgba(0, 0, 0, 0.08);
+		padding: clamp(2.75rem, 7vw, 4rem) 1.25rem;
+	}
+
+	.testimonial__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+	}
+
+	.testimonial__header {
+		margin-bottom: 1.75rem;
+	}
+
+	.testimonial__label {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-weight: 500;
+		font-size: 0.6875rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		line-height: 1.4;
+		color: #c65d21;
+	}
+
+	.testimonial__lead {
+		margin: 0.5rem 0 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: clamp(1.25rem, 2vw, 1.5rem);
+		letter-spacing: -0.025em;
+		line-height: 1.25;
+		color: #1d1d1f;
+	}
+
+	.testimonial__grid {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.testimonial__quote {
+		position: relative;
+		margin: 0;
+		padding: 1.5rem 1.35rem 1.35rem;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-radius: 0.75rem;
+		background: #ffffff;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+		overflow: hidden;
+	}
+
+	.testimonial__quote::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 3px;
+		background: #c65d21;
+	}
+
+	.testimonial__mark {
+		display: block;
+		margin: 0 0 0.35rem;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 2.5rem;
+		line-height: 0.8;
+		color: #c65d21;
+		opacity: 0.85;
+	}
+
+	.testimonial__text {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-weight: 500;
+		font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+		letter-spacing: -0.02em;
+		line-height: 1.45;
+		color: #1d1d1f;
+		max-width: 36ch;
+		text-wrap: balance;
+	}
+
+	.testimonial__footer {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		margin-top: 1.15rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(0, 0, 0, 0.06);
+	}
+
+	.testimonial__cite {
+		font-family: var(--font-body);
+		font-style: normal;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		color: #1d1d1f;
+	}
+
+	.testimonial__context {
+		font-family: var(--font-body);
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		color: #5c5c61;
+	}
+
+	@media (min-width: 900px) {
+		.testimonial__grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 1.15rem;
+		}
+
+		.testimonial__quote {
+			padding: 1.6rem 1.5rem 1.45rem;
+		}
+	}
+</style>

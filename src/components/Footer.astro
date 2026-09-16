@@ -1,0 +1,125 @@
+---
+/**
+ * Site footer — contact, social, copyright
+ */
+const year = new Date().getFullYear();
+
+const social = [
+	{ href: 'https://www.linkedin.com/in/coachhogan', label: 'LinkedIn' },
+	{ href: 'https://www.instagram.com/coachchrishogan/', label: 'Instagram' },
+	{ href: 'https://coachhogan.com/', label: 'coachhogan.com' },
+];
+
+const links = [
+	{ href: '#about', label: 'About' },
+	{ href: '#speaking', label: 'Speaking' },
+	{ href: '#books', label: 'Books' },
+	{ href: '#contact', label: 'Contact' },
+];
+---
+
+<footer class="site-footer theme-obsidian">
+	<div class="site-footer__inner">
+		<div class="site-footer__brand">
+			<p class="site-footer__name">Chris Hogan</p>
+			<p class="site-footer__tag">Author · Speaker · Coach</p>
+			<p class="site-footer__place">Hogan Consulting Group · Nashville</p>
+		</div>
+
+		<nav class="site-footer__nav" aria-label="Footer">
+			{
+				links.map((link) => (
+					<a href={link.href}>{link.label}</a>
+				))
+			}
+		</nav>
+
+		<div class="site-footer__social">
+			{
+				social.map((item) => (
+					<a href={item.href} target="_blank" rel="noopener noreferrer">
+						{item.label}
+					</a>
+				))
+			}
+		</div>
+
+		<p class="site-footer__copy">
+			© {year} Chris Hogan. All rights reserved.
+		</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--border-dark);
+		padding: clamp(2.5rem, 6vw, 4rem) 1.25rem;
+	}
+
+	.site-footer__inner {
+		width: min(100%, 72rem);
+		margin-inline: auto;
+		display: grid;
+		gap: 1.75rem;
+	}
+
+	.site-footer__name {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 1.125rem;
+		letter-spacing: -0.03em;
+		color: #fff;
+	}
+
+	.site-footer__tag,
+	.site-footer__place {
+		margin: 0.35rem 0 0;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		color: color-mix(in srgb, #fff 55%, transparent);
+		max-width: none;
+	}
+
+	.site-footer__nav,
+	.site-footer__social {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.5rem;
+	}
+
+	.site-footer__nav a,
+	.site-footer__social a {
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		font-weight: 500;
+		text-decoration: none;
+		color: color-mix(in srgb, #fff 72%, transparent);
+	}
+
+	.site-footer__nav a:hover,
+	.site-footer__social a:hover {
+		color: #fff;
+	}
+
+	.site-footer__copy {
+		margin: 0.5rem 0 0;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--border-dark);
+		font-size: 0.8125rem;
+		color: color-mix(in srgb, #fff 42%, transparent);
+		max-width: none;
+	}
+
+	@media (min-width: 768px) {
+		.site-footer__inner {
+			grid-template-columns: 1.4fr 1fr 1fr;
+			align-items: start;
+			column-gap: 2rem;
+		}
+
+		.site-footer__copy {
+			grid-column: 1 / -1;
+		}
+	}
+</style>

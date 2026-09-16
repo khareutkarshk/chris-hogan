@@ -1,0 +1,76 @@
+---
+/**
+ * Button — Studio Cobalt / Burnished Copper / Outline
+ * Accents stay under ~5% visual coverage; use primary sparingly.
+ */
+type Variant = 'primary' | 'copper' | 'secondary' | 'ghost';
+type Size = 'sm' | 'md' | 'lg';
+type Surface = 'light' | 'dark';
+
+interface Props {
+	variant?: Variant;
+	size?: Size;
+	surface?: Surface;
+	href?: string;
+	type?: 'button' | 'submit' | 'reset';
+	class?: string;
+	disabled?: boolean;
+	external?: boolean;
+}
+
+const {
+	variant = 'primary',
+	size = 'md',
+	surface = 'light',
+	href,
+	type = 'button',
+	class: className = '',
+	disabled = false,
+	external = false,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const sizeClasses: Record<Size, string> = {
+	sm: 'px-4 py-2 text-sm',
+	md: 'px-5 py-2.5 text-sm',
+	lg: 'px-6 py-3 text-base',
+};
+
+const variantClasses: Record<Variant, string> = {
+	primary:
+		'bg-cobalt text-inverted border border-transparent hover:brightness-110 active:brightness-95',
+	copper:
+		'bg-copper text-inverted border border-transparent hover:brightness-110 active:brightness-95',
+	secondary:
+		surface === 'dark'
+			? 'bg-transparent text-inverted border border-[var(--border-dark)] hover:border-[rgba(255,255,255,0.28)] hover:bg-[rgba(255,255,255,0.06)]'
+			: 'bg-transparent text-primary border border-[var(--border-light)] hover:border-[rgba(0,0,0,0.16)] hover:bg-[rgba(0,0,0,0.02)]',
+	ghost:
+		surface === 'dark'
+			? 'bg-transparent text-inverted border border-transparent hover:bg-[rgba(255,255,255,0.08)]'
+			: 'bg-transparent text-cobalt border border-transparent hover:bg-[color-mix(in_srgb,var(--color-accent-blue)_8%,transparent)]',
+};
+
+const classes = [
+	'text-cta inline-flex cursor-pointer items-center justify-center gap-2 rounded-md',
+	'transition-[background-color,border-color,color,box-shadow,filter,transform] duration-200 ease-[var(--ease-standard)]',
+	'focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+	'disabled:pointer-events-none disabled:opacity-45',
+	sizeClasses[size],
+	variantClasses[variant],
+	className,
+].join(' ');
+---
+
+<Tag
+	class={classes}
+	{...(href
+		? {
+				href,
+				...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
+			}
+		: { type, disabled })}
+>
+	<slot />
+</Tag>

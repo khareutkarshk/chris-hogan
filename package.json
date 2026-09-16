@@ -12,9 +12,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.2"
+    "@astrojs/alpinejs": "^1.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "alpinejs": "^3.17.3",
+    "astro": "^7.3.2",
+    "tailwindcss": "^4.3.3"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.11"
   }
 }
