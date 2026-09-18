@@ -88,7 +88,7 @@ const preloadHref = preloadImage ? withBase(preloadImage) : undefined;
 		top: 0;
 		z-index: 40;
 		padding-inline: 1.25rem;
-		background: color-mix(in srgb, #fbfbfd 92%, transparent);
+		background: color-mix(in srgb, var(--color-base-canvas) 92%, transparent);
 		backdrop-filter: blur(12px);
 		border-bottom: 1px solid var(--border-light);
 	}
@@ -106,7 +106,7 @@ const preloadHref = preloadImage ? withBase(preloadImage) : undefined;
 	@media (prefers-reduced-motion: reduce) {
 		.site-chrome {
 			backdrop-filter: none;
-			background: #fbfbfd;
+			background: var(--color-base-canvas);
 		}
 
 		.site-chrome--dark {

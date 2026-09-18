@@ -173,14 +173,15 @@ const findings = [
 		padding: clamp(3rem, 8vw, 5.5rem) 1.25rem;
 	}
 
+	/* Alternate the two book blocks so the page never runs light for long */
 	.book-block--alt {
 		background:
 			radial-gradient(
 				90% 70% at 0% 0%,
-				color-mix(in srgb, #c65d21 5%, transparent) 0%,
+				color-mix(in srgb, var(--color-accent-gold) 8%, transparent) 0%,
 				transparent 50%
 			),
-			#fbfbfd;
+			var(--color-surface-mist);
 	}
 
 	.book-block__inner {
@@ -210,7 +211,7 @@ const findings = [
 
 	.book-block__meta {
 		margin: 0;
-		color: #c65d21;
+		color: var(--gold-text);
 	}
 
 	.book-block__copy h2 {
@@ -269,7 +270,7 @@ const findings = [
 		top: 0.55em;
 		width: 0.4rem;
 		height: 0.4rem;
-		background: #c65d21;
+		background: var(--gold-rail);
 	}
 
 	.book-block__actions {
@@ -305,7 +306,7 @@ const findings = [
 		border: 1px solid var(--border-light);
 		border-radius: 0.625rem;
 		background: #fff;
-		border-top: 2px solid #c65d21;
+		border-top: 2px solid var(--gold-rail);
 		font-family: var(--font-mono);
 		font-size: 0.625rem;
 		letter-spacing: 0.04em;

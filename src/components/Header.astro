@@ -151,20 +151,21 @@ function isCurrent(href: string) {
 		transition: color var(--duration-fast) var(--ease-standard);
 	}
 
+	/* Wordmark carries the gold identity on every surface */
 	.site-header--dark .site-header__wordmark {
-		color: var(--color-text-inverted);
+		color: var(--color-accent-gold-bright);
 	}
 
 	.site-header--dark .site-header__wordmark:hover {
-		color: color-mix(in srgb, #fff 88%, var(--color-accent-blue));
+		color: color-mix(in srgb, var(--color-accent-gold-bright) 80%, #fff);
 	}
 
 	.site-header--light .site-header__wordmark {
-		color: var(--color-text-primary);
+		color: var(--color-accent-gold-ink);
 	}
 
 	.site-header--light .site-header__wordmark:hover {
-		color: var(--color-accent-blue);
+		color: color-mix(in srgb, var(--color-accent-gold-ink) 80%, #000);
 	}
 
 	.site-header__links {

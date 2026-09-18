@@ -1,9 +1,10 @@
 ---
 /**
- * Button — Studio Cobalt / Burnished Copper / Outline
+ * Button — Brand Navy / Gold / Outline
  * Accents stay under ~5% visual coverage; use primary sparingly.
+ * `copper` is the legacy name for the gold variant.
  */
-type Variant = 'primary' | 'copper' | 'secondary' | 'ghost';
+type Variant = 'primary' | 'gold' | 'copper' | 'secondary' | 'ghost';
 type Size = 'sm' | 'md' | 'lg';
 type Surface = 'light' | 'dark';
 
@@ -37,19 +38,23 @@ const sizeClasses: Record<Size, string> = {
 	lg: 'px-6 py-3 text-base',
 };
 
+/* Gold is a light fill — it carries ink text, never white. */
+const goldClasses =
+	'bg-[var(--color-accent-gold)] text-[var(--color-surface-ink)] border border-transparent hover:brightness-105 active:brightness-95';
+
 const variantClasses: Record<Variant, string> = {
 	primary:
-		'bg-cobalt text-inverted border border-transparent hover:brightness-110 active:brightness-95',
-	copper:
-		'bg-copper text-inverted border border-transparent hover:brightness-110 active:brightness-95',
+		'bg-cobalt text-white border border-transparent hover:brightness-110 active:brightness-95',
+	gold: goldClasses,
+	copper: goldClasses,
 	secondary:
 		surface === 'dark'
-			? 'bg-transparent text-inverted border border-[var(--border-dark)] hover:border-[rgba(255,255,255,0.28)] hover:bg-[rgba(255,255,255,0.06)]'
-			: 'bg-transparent text-primary border border-[var(--border-light)] hover:border-[rgba(0,0,0,0.16)] hover:bg-[rgba(0,0,0,0.02)]',
+			? 'bg-transparent text-white border border-[var(--border-dark)] hover:border-[rgba(255,255,255,0.28)] hover:bg-[rgba(255,255,255,0.06)]'
+			: 'bg-transparent text-[var(--color-text-primary)] border border-[var(--border-light)] hover:border-[rgba(12,61,160,0.28)] hover:bg-[rgba(12,61,160,0.04)]',
 	ghost:
 		surface === 'dark'
-			? 'bg-transparent text-inverted border border-transparent hover:bg-[rgba(255,255,255,0.08)]'
-			: 'bg-transparent text-cobalt border border-transparent hover:bg-[color-mix(in_srgb,var(--color-accent-blue)_8%,transparent)]',
+			? 'bg-transparent text-white border border-transparent hover:bg-[rgba(255,255,255,0.08)]'
+			: 'bg-transparent text-[var(--color-accent-blue)] border border-transparent hover:bg-[color-mix(in_srgb,var(--color-accent-blue)_8%,transparent)]',
 };
 
 const classes = [

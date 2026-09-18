@@ -104,11 +104,11 @@ const isPhoto = surface === 'photo';
 		background:
 			linear-gradient(
 				105deg,
-				rgba(8, 8, 8, 0.88) 0%,
-				rgba(8, 8, 8, 0.62) 38%,
-				rgba(8, 8, 8, 0.28) 70%
+				rgba(6, 14, 32, 0.88) 0%,
+				rgba(6, 14, 32, 0.62) 38%,
+				rgba(6, 14, 32, 0.28) 70%
 			),
-			linear-gradient(to top, rgba(8, 8, 8, 0.55) 0%, transparent 55%);
+			linear-gradient(to top, rgba(6, 14, 32, 0.55) 0%, transparent 55%);
 	}
 
 	.page-hero__inner {
@@ -116,7 +116,7 @@ const isPhoto = surface === 'photo';
 		z-index: 1;
 		width: min(100%, 72rem);
 		margin-inline: auto;
-		border-left: 3px solid #c65d21;
+		border-left: 3px solid var(--gold-rail);
 		padding-left: 1.15rem;
 	}
 
@@ -128,7 +128,7 @@ const isPhoto = surface === 'photo';
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		line-height: 1;
-		color: #c65d21;
+		color: var(--gold-text);
 	}
 
 	.page-hero__title {

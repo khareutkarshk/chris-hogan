@@ -7,20 +7,40 @@
 ============================================================================= */
 
 :root {
+	/* ---------------------------------------------------------------------
+	   Two-accent system: Brand Navy (cool, structural) + Gold (warm, human).
+	   Navy carries hierarchy and action; gold marks identity and moments.
+	   --------------------------------------------------------------------- */
+
 	/* Material Base & Neutrals */
 	--color-base-obsidian: #080808;
-	--color-base-canvas: #fbfbfd;
+	/* Canvas carries a faint navy cast so light sections never glare white */
+	--color-base-canvas: #f4f6fa;
 	--color-text-primary: #1d1d1f;
 	--color-text-inverted: #ffffff;
-	--color-text-secondary: #86868b;
+	--color-text-secondary: #5f6472;
 
-	/* Signature Accents (<5% coverage) */
-	--color-accent-blue: #0071e3;
-	--color-accent-copper: #c65d21;
+	/* Brand Navy */
+	--color-accent-blue: #0c3da0;
+	--color-accent-navy-deep: #092f7c;
+	/* Legible navy for links on dark surfaces */
+	--color-accent-navy-soft: #8fb4ff;
+
+	/* Gold — bright tone for dark surfaces, ink tone for light surfaces */
+	--color-accent-gold: #c9a227;
+	--color-accent-gold-bright: #d8b451;
+	--color-accent-gold-ink: #8a6914;
+	/* Back-compat alias: legacy `copper` usages now read as gold */
+	--color-accent-copper: var(--color-accent-gold);
+
+	/* Dark & tinted surfaces — navy ink instead of flat black */
+	--color-surface-ink: #0a1730;
+	--color-surface-ink-soft: #101e3c;
+	--color-surface-mist: #eaeef6;
 
 	/* Borders & Dividers */
-	--border-light: rgba(0, 0, 0, 0.08);
-	--border-dark: rgba(255, 255, 255, 0.1);
+	--border-light: rgba(12, 61, 160, 0.12);
+	--border-dark: rgba(255, 255, 255, 0.12);
 
 	/* Typography Stack */
 	--font-heading: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -47,7 +67,15 @@
 
 	/* Shadows (restrained) */
 	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-	--shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+	--shadow-md: 0 8px 24px rgba(12, 23, 48, 0.08);
+
+	/* Surface-aware accents — components read these, never raw hex.
+	   Light surfaces need the deeper gold to stay legible; dark surfaces
+	   need the brighter tone. Dark themes override these below. */
+	--gold-text: var(--color-accent-gold-ink);
+	--gold-rail: var(--color-accent-gold);
+	--navy-text: var(--color-accent-blue);
+	--card-surface: #ffffff;
 }
 
 /* -----------------------------------------------------------------------------
@@ -64,6 +92,10 @@
 	--color-titanium: var(--color-text-secondary);
 	--color-cobalt: var(--color-accent-blue);
 	--color-copper: var(--color-accent-copper);
+	--color-gold: var(--color-accent-gold);
+	--color-gold-ink: var(--color-accent-gold-ink);
+	--color-ink: var(--color-surface-ink);
+	--color-mist: var(--color-surface-mist);
 	--color-border-light: var(--border-light);
 	--color-border-dark: var(--border-dark);
 
@@ -270,8 +302,20 @@
 		color: var(--color-accent-blue);
 	}
 
-	.text-copper {
-		color: var(--color-accent-copper);
+	.text-copper,
+	.text-gold {
+		color: var(--gold-text);
+	}
+
+	/* Tinted light surface — breaks up long white runs without going dark */
+	.bg-mist {
+		background-color: var(--color-surface-mist);
+		color: var(--color-text-primary);
+	}
+
+	/* Gold identity treatment for the Chris Hogan wordmark */
+	.wordmark-gold {
+		color: var(--gold-text);
 	}
 
 	.border-subtle {
@@ -284,29 +328,41 @@
 }
 
 /* =============================================================================
-   Obsidian section compatibility
-   Use .theme-obsidian on any section that needs inverted chrome.
+   Dark sections — navy ink, not flat black.
+   Use .theme-obsidian (legacy name) or .theme-ink on any inverted section.
+   Declared in the components layer so Tailwind utilities (buttons, cards)
+   still win; unlayered rules here would override every utility.
 ============================================================================= */
 
-.theme-obsidian {
-	--color-text-primary: var(--color-text-inverted);
-	--color-text-secondary: color-mix(in srgb, #ffffff 55%, transparent);
-	--border-light: var(--border-dark);
-	background-color: var(--color-base-obsidian);
-	color: var(--color-text-inverted);
-}
+@layer components {
+	.theme-obsidian,
+	.theme-ink {
+		--color-text-primary: var(--color-text-inverted);
+		--color-text-secondary: color-mix(in srgb, #ffffff 62%, transparent);
+		--border-light: var(--border-dark);
+		--gold-text: var(--color-accent-gold-bright);
+		--gold-rail: var(--color-accent-gold-bright);
+		--navy-text: var(--color-accent-navy-soft);
+		--card-surface: var(--color-surface-ink-soft);
+		background-color: var(--color-surface-ink);
+		color: var(--color-text-inverted);
+	}
 
-.theme-obsidian a {
-	color: #6eb5ff;
-}
+	.theme-obsidian a,
+	.theme-ink a {
+		color: var(--color-accent-navy-soft);
+	}
 
-.theme-obsidian a:hover {
-	color: #9dceff;
-}
+	.theme-obsidian a:hover,
+	.theme-ink a:hover {
+		color: #b9d1ff;
+	}
 
-.theme-obsidian ::selection {
-	background: color-mix(in srgb, var(--color-accent-blue) 40%, transparent);
-	color: #ffffff;
+	.theme-obsidian ::selection,
+	.theme-ink ::selection {
+		background: color-mix(in srgb, var(--color-accent-gold) 45%, transparent);
+		color: #ffffff;
+	}
 }
 
 /* Alpine.js — hide until initialized */

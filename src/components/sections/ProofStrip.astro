@@ -50,7 +50,7 @@ const {
 <section
 	id={id}
 	aria-label="Credibility"
-	class="border-t border-black/8 bg-[#fbfbfd] px-4 py-6 md:px-5 md:py-8"
+	class="border-t border-[var(--border-light)] bg-[var(--color-surface-mist)] px-4 py-6 md:px-5 md:py-8"
 >
 	<div class="mx-auto w-full max-w-6xl">
 		<ul
@@ -60,7 +60,7 @@ const {
 				metrics.map((metric, index) => (
 					<li
 						class:list={[
-							'flex flex-col gap-1.5 rounded-[0.625rem] border border-black/8 border-t-2 border-t-[#c65d21] bg-white px-3.5 py-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] md:px-4 md:py-4',
+							'flex flex-col gap-1.5 rounded-[0.625rem] border border-[var(--border-light)] border-t-2 border-t-[var(--gold-rail)] bg-white px-3.5 py-3.5 shadow-[0_1px_2px_rgba(12,23,48,0.04)] md:px-4 md:py-4',
 							index === metrics.length - 1 && metrics.length % 2 === 1
 								? 'col-span-2 lg:col-span-1'
 								: '',
@@ -69,10 +69,10 @@ const {
 						<span class="font-heading text-[1.35rem] font-bold leading-tight tracking-[-0.03em] text-[#1d1d1f] md:text-2xl lg:text-[1.375rem]">
 							{metric.value}
 						</span>
-						<span class="hidden font-mono text-[0.625rem] font-medium uppercase leading-snug tracking-[0.04em] text-[#5c5c61] md:block md:text-[0.6875rem] lg:text-[0.625rem]">
+						<span class="hidden font-mono text-[0.625rem] font-medium uppercase leading-snug tracking-[0.04em] text-[var(--color-text-secondary)] md:block md:text-[0.6875rem] lg:text-[0.625rem]">
 							{metric.label}
 						</span>
-						<span class="block font-mono text-[0.625rem] font-medium uppercase leading-snug tracking-[0.04em] text-[#5c5c61] md:hidden">
+						<span class="block font-mono text-[0.625rem] font-medium uppercase leading-snug tracking-[0.04em] text-[var(--color-text-secondary)] md:hidden">
 							{metric.labelShort ?? metric.label}
 						</span>
 					</li>
