@@ -24,3 +24,8 @@ pnpm-debug.log*
 .idea/
 
 .pnpm-store/
+
+.vscode/
+.cursor/
+graphify-corpus/
+graphify-out/
